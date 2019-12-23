@@ -4,7 +4,7 @@
     :class="{'searchable': searchable, 'orderable': orderable}"
     :style="{'minWidth': minWidth || '0', 'textAlign': align }"
   >
-    {{ text }}
+    {{ label }}
   </th>
 </template>
 
@@ -14,7 +14,7 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'Header',
   props: {
-    text: String,
+    label: String,
     align: {
       type: String,
       default: 'left',

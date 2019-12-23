@@ -1,6 +1,6 @@
 interface Cell {
   type: string,
-  text: string;
+  label: string;
 }
 
 export default Cell;

@@ -13,6 +13,7 @@ import Vue from 'vue';
 import DataTable from './components/DataTable.vue';
 import Row from './interfaces/Row';
 import Header from './interfaces/Header';
+import SummaryInterface from './interfaces/Summary';
 
 export default Vue.extend({
   name: 'app',
@@ -22,68 +23,68 @@ export default Vue.extend({
   data () {
     const headers: Array<Header> = [
       {
-        text: 'Header 1',
+        label: 'Header 1',
         searchable: true,
         minWidth: '100px',
         orderable: false,
       },
       {
-        text: 'Header 2',
+        label: 'Header 2',
         minWidth: '400px',
         searchable: true,
       },
       {
-        text: 'Header 3',
+        label: 'Header 3',
       },
       {
-        text: 'Header 4',
+        label: 'Header 4',
         align: 'center',
       },
       {
-        text: 'Header 5',
+        label: 'Header 5',
       },
       {
-        text: 'Header 6',
+        label: 'Header 6',
       },
       {
-        text: 'Header 7',
+        label: 'Header 7',
       },
     ];
     const rows: Array<Row> = [
       {
         id: 1,
         cells: [
-          { type: 'text', text: 'L1 - Text1' },
-          { type: 'text', text: 'L1 - Text2' },
-          { type: 'text', text: 'L1 - Text3' },
-          { type: 'text', text: 'L1 - Text3' },
-          { type: 'text', text: 'L1 - Text3' },
-          { type: 'text', text: 'L1 - Text3' },
-          { type: 'text', text: 'L1 - Text3' },
+          { type: 'summary', label: 'sdnfjsbjfbsdjbfjhbsdhbfhsd', size: 10, reversed: true } as SummaryInterface,
+          { type: 'text', label: 'L1 - Text2' },
+          { type: 'text', label: 'L1 - Text3' },
+          { type: 'text', label: 'L1 - Text3' },
+          { type: 'text', label: 'L1 - Text3' },
+          { type: 'text', label: 'L1 - Text3' },
+          { type: 'text', label: 'L1 - Text3' },
         ],
       },
       {
         id: 2,
         cells: [
-          { type: 'text', text: 'L2 - Text1' },
-          { type: 'text', text: 'L2 - Text2' },
-          { type: 'text', text: 'L2 - Text3' },
-          { type: 'text', text: 'L2 - Text3' },
-          { type: 'text', text: 'L2 - Text3' },
-          { type: 'text', text: 'L2 - Text3' },
-          { type: 'text', text: 'L2 - Text3' },
+          { type: 'text', label: 'L2 - Text1' },
+          { type: 'text', label: 'L2 - Text2' },
+          { type: 'text', label: 'L2 - Text3' },
+          { type: 'text', label: 'L2 - Text3' },
+          { type: 'text', label: 'L2 - Text3' },
+          { type: 'text', label: 'L2 - Text3' },
+          { type: 'text', label: 'L2 - Text3' },
         ],
       },
       {
         id: 3,
         cells: [
-          { type: 'text', text: 'L3 - Text1' },
-          { type: 'text', text: 'L3 - Text2' },
-          { type: 'text', text: 'L3 - Text3' },
-          { type: 'text', text: 'L3 - Text3' },
-          { type: 'text', text: 'L3 - Text3' },
-          { type: 'text', text: 'L3 - Text3' },
-          { type: 'text', text: 'L3 - Text3' },
+          { type: 'text', label: 'L3 - Text1' },
+          { type: 'text', label: 'L3 - Text2' },
+          { type: 'text', label: 'L3 - Text3' },
+          { type: 'text', label: 'L3 - Text3' },
+          { type: 'text', label: 'L3 - Text3' },
+          { type: 'text', label: 'L3 - Text3' },
+          { type: 'text', label: 'L3 - Text3' },
         ],
       },
     ];

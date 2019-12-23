@@ -1,7 +1,7 @@
 interface Header {
+  label: string;
   searchable?: boolean;
   orderable?: boolean;
-  text: string;
   align?: string;
   minWidth?: string
 }

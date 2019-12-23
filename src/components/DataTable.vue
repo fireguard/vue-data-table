@@ -6,11 +6,11 @@
           <Header
             v-for="(header, index) in headers"
             :key="index"
-            :text="header.text"
+            :label="header.label"
             :searchable="header.searchable"
             :orderable="header.orderable"
             :align="header.align"
-            :minWidth="header.minWidth"  />
+            :minWidth="header.minWidth" />
         </tr>
       </thead>
       <tbody>

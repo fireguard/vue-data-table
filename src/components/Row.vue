@@ -5,13 +5,15 @@
     @click="click"
   >
     <td v-for="(cell, index) in row.cells" :key="index">
-      <CellText :text="cell.text" v-if="cell.type === 'text'" />
+      <CellSummary :label="cell.label" :reversed="cell.reversed" :size="cell.size" v-if="cell.type === 'summary'" />
+      <CellText :label="cell.label" v-else />
     </td>
   </tr>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import CellSummary from './Cells/Summary.vue';
 import CellText from './Cells/Text.vue';
 import RowInterface from '../interfaces/Row';
 
@@ -19,6 +21,7 @@ export default Vue.extend({
   name: 'Row',
   components: {
     CellText,
+    CellSummary,
   },
   props: {
     selectable: {
