@@ -1,22 +1,19 @@
 <template>
-  <div class="data-table-component" style="overflow-x:auto;">
+  <div class="data-table-component">
     <table>
       <thead>
         <tr >
           <Header
             v-for="(header, index) in headers"
-            :key="index"
-            :label="header.label"
-            :searchable="header.searchable"
-            :orderable="header.orderable"
-            :align="header.align"
-            :minWidth="header.minWidth" />
+            :key="header.id || index"
+            :header="header"
+            :ordered="header.id === orderBy"
+            @click="heanderClick" />
         </tr>
       </thead>
       <tbody>
         <tr
           is="Row"
-          name="Some name here"
           v-for="row in rows"
           :row="row"
           :key="row.id"
@@ -38,8 +35,8 @@ import Vue from 'vue';
 import Row from './Row.vue';
 import Header from './Header.vue';
 
-import RowInterface from '../interfaces/Row';
-import HeaderInterface from '../interfaces/Header';
+import RowEntity from '../entities/Row';
+import HeaderEntity from '../entities/Header';
 
 export default Vue.extend({
   name: 'DataTable',
@@ -48,12 +45,16 @@ export default Vue.extend({
     Row,
   },
   props: {
+    orderBy: {
+      type: String,
+      default: null,
+    },
     rows: {
-      type: Array as () => Array<RowInterface>,
+      type: Array as () => Array<RowEntity>,
       default: [],
     },
     headers: {
-      type: Array as () => Array<HeaderInterface>,
+      type: Array as () => Array<HeaderEntity>,
       default: [],
     },
     selectableRows: {
@@ -62,17 +63,22 @@ export default Vue.extend({
     },
   },
   methods: {
-    rowClick (rowClicked: {row: RowInterface, event: MouseEvent}) {
+    heanderClick (header: HeaderEntity) {
+      if (header.orderable !== false) {
+        this.$emit('changeOrder', header);
+      }
+    },
+    rowClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
       this.changeSelectedRow(rowClicked);
       this.$emit('rowClick', rowClicked);
     },
-    rowDoubleClick (rowClicked: {row: RowInterface, event: MouseEvent}) {
+    rowDoubleClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
       this.$emit('rowDoubleClick', rowClicked);
     },
-    isSelectedRow (row: RowInterface): boolean {
+    isSelectedRow (row: RowEntity): boolean {
       return this.selectedRows.indexOf(row.id) >= 0;
     },
-    changeSelectedRow (rowClicked: {row: RowInterface, event: MouseEvent}): void {
+    changeSelectedRow (rowClicked: {row: RowEntity, event: MouseEvent}): void {
       if (this.isSelectedRow(rowClicked.row)) {
         this.selectedRows = this.selectedRows.filter((rowId) => rowClicked.row.id === rowId);
         return;
@@ -85,9 +91,8 @@ export default Vue.extend({
     },
   },
   data () {
-    let selectedRows: (string|number)[] = [];
     return {
-      selectedRows,
+      selectedRows: [] as (string|number)[],
     };
   },
 });
@@ -95,6 +100,7 @@ export default Vue.extend({
 
 <style lang="scss">
 .data-table-component {
+  overflow-x: auto;
   table {
     width: 100%;
     border-collapse: collapse;

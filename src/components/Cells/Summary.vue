@@ -6,16 +6,12 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
+import SummaryEntity from '../../entities/Summary';
 
 export default Vue.extend({
   name: 'CellSummary',
   props: {
-    label: String,
-    size: Number,
-    reversed: {
-      type: Boolean,
-      default: false,
-    },
+    cell: SummaryEntity,
   },
   data () {
     return {
@@ -29,23 +25,23 @@ export default Vue.extend({
   },
   computed: {
     showSummaryText () {
-      if (!this.reversed || !this.summarized) return '';
+      if (!this.cell.reversed || !this.summarized) return '';
 
       return '...';
     },
     showSummaryReservedText () {
-      if (this.reversed || !this.summarized) return '';
+      if (this.cell.reversed || !this.summarized) return '';
 
       return '...';
     },
     showText (): string {
       if (!this.summarized) {
-        return this.label;
+        return this.cell.label;
       }
-      if (this.reversed) {
-        return this.label.substring(this.label.length - this.size, this.label.length);
+      if (this.cell.reversed) {
+        return this.cell.label.substring(this.cell.label.length - this.cell.size, this.cell.label.length);
       }
-      return this.label.substring(0, this.size);
+      return this.cell.label.substring(0, this.cell.size);
     },
   },
 

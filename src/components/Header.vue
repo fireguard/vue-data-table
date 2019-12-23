@@ -1,15 +1,17 @@
 <template>
   <th
     class="header-component"
-    :class="{'searchable': searchable, 'orderable': orderable}"
-    :style="{'minWidth': minWidth || '0', 'textAlign': align }"
+    :class="getHeaderClasses()"
+    :style="{'minWidth': header.minWidth || '0', 'textAlign': header.align }"
+    @click="handlerClick"
   >
-    {{ label }}
+    {{ header.label }}
   </th>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import HeaderEntity from '../entities/Header';
 
 export default Vue.extend({
   name: 'Header',
@@ -19,17 +21,31 @@ export default Vue.extend({
       type: String,
       default: 'left',
     },
-    searchable: {
+    header: {
+      type: Object as () => HeaderEntity,
+      required: true,
+    },
+    ordered: {
       type: Boolean,
       default: false,
     },
-    orderable: {
-      type: Boolean,
-      default: true,
+  },
+  methods: {
+    handlerClick () {
+      this.$emit('click', this.header);
     },
-    minWidth: {
-      type: String,
-      default: null,
+    getHeaderClasses () {
+      let classes = [];
+      if (this.header.searchable) {
+        classes.push('searchable');
+      }
+      if (this.header.orderable !== false) {
+        classes.push('orderable');
+      }
+      if (this.header.orderable !== false && this.ordered) {
+        classes.push(this.header.orderDirection === 'desc' ? 'desc' : 'asc');
+      }
+      return classes;
     },
   },
 });
@@ -40,21 +56,30 @@ export default Vue.extend({
   &.orderable {
     cursor: pointer;
     &::before {
-      padding: 1px;
-      content: '>';
+      padding: 1px 0;
+      content: "\f0dc";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 14px;
+      opacity: 0.2;
+    }
+    &.asc::before {
+      content: "\f15d";
+      opacity: 0.7;
+    }
+    &.desc::before {
+      content: "\f882";
+      opacity: 0.7;
     }
   }
   &.searchable {
     &::after {
       cursor: default;
-      padding: 1px;
-      content: ' ';
-      background-image: url('../assets/icons/search.svg');
-      background-size: 12px 12px;
-      background-repeat: no-repeat;
-      background-position: left 4px;
-      width: 12px;
-      height: 16px;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f002";
+      font-size: 12px;
+      padding: 3px;
       float: right;
       opacity: 0.4;
     }

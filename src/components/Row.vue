@@ -5,8 +5,8 @@
     @click="click"
   >
     <td v-for="(cell, index) in row.cells" :key="index">
-      <CellSummary :label="cell.label" :reversed="cell.reversed" :size="cell.size" v-if="cell.type === 'summary'" />
-      <CellText :label="cell.label" v-else />
+      <CellSummary :cell="cell" v-if="cell.type === 'summary'" />
+      <CellText :cell="cell" v-else />
     </td>
   </tr>
 </template>
@@ -15,7 +15,9 @@
 import Vue from 'vue';
 import CellSummary from './Cells/Summary.vue';
 import CellText from './Cells/Text.vue';
-import RowInterface from '../interfaces/Row';
+import RowEntity from '../entities/Row';
+import CellEntity from '../entities/Cell';
+import SummaryEntity from '../entities/Summary';
 
 export default Vue.extend({
   name: 'Row',
@@ -33,7 +35,7 @@ export default Vue.extend({
       default: false,
     },
     row: {
-      type: Object as () => RowInterface,
+      type: Object as () => RowEntity,
     },
   },
 

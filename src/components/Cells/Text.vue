@@ -1,14 +1,15 @@
 <template>
-  <span class="cell-text-component">{{ label }}</span>
+  <span class="cell-text-component">{{ cell.label }}</span>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import CellEntity from '../../entities/Cell';
 
 export default Vue.extend({
   name: 'CellText',
   props: {
-    label: String,
+    cell: CellEntity,
   },
 });
 </script>
