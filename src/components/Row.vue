@@ -6,6 +6,7 @@
   >
     <td v-for="(cell, index) in row.cells" :key="index">
       <CellSummary :cell="cell" v-if="cell.type === 'summary'" />
+      <CellLabel :cell="cell" v-else-if="cell.type === 'label'" />
       <CellText :cell="cell" v-else />
     </td>
   </tr>
@@ -15,6 +16,7 @@
 import Vue from 'vue';
 import CellSummary from './Cells/Summary.vue';
 import CellText from './Cells/Text.vue';
+import CellLabel from './Cells/Label.vue';
 import RowEntity from '../entities/Row';
 import CellEntity from '../entities/Cell';
 import SummaryEntity from '../entities/Summary';
@@ -24,6 +26,7 @@ export default Vue.extend({
   components: {
     CellText,
     CellSummary,
+    CellLabel,
   },
   props: {
     selectable: {
