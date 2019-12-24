@@ -18,21 +18,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style lang="scss">
-@import '../../themes/index';
-.cell-link-component {
-  color: $primary;
-
-  a:any-link {
-    color: $primary;
-    .selected & {
-      color: $textColorLight;
-    }
-  }
-
-  .selected & {
-    color: $textColorLight;
-  }
-}
-</style>

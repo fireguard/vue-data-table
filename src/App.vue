@@ -6,6 +6,7 @@
       :selectableRows="true"
       :orderBy="orderBy"
       @changeOrder="changeOrder"
+      @cellClick="onCellClick"
     />
   </div>
 </template>
@@ -19,6 +20,7 @@ import Cell from './entities/Cells/Cell';
 import Summary from './entities/Cells/Summary';
 import Link from './entities/Cells/Link';
 import Image from './entities/Cells/Image';
+import Icon from './entities/Cells/Icon';
 import Label, { Color as LabelColor } from './entities/Cells/Label';
 
 export default Vue.extend({
@@ -31,15 +33,18 @@ export default Vue.extend({
       header.changeOrderDirection();
       this.orderBy = header.id;
     },
+    onCellClick (data: {event: MouseEvent, cell: Cell, row: Row}) {
+      console.error(data);
+    },
   },
   data () {
     const headers: Array<Header> = [
       new Header({ id: 'summary', label: 'Summary' }),
       new Header({ id: 'text', label: 'Text', minWidth: '400px' }),
       new Header({ id: 'label', label: 'Label', orderDirection: 'asc', align: 'center' }),
-      new Header({ id: 'h4', label: 'Link', orderDirection: 'asc' }),
-      new Header({ id: 'h5', label: 'Image', searchable: false, orderable: false }),
-      new Header({ id: 'h6', label: 'Header 6' }),
+      new Header({ id: 'link', label: 'Link', orderDirection: 'asc' }),
+      new Header({ id: 'image', label: 'Image', searchable: false, orderable: false }),
+      new Header({ id: 'icon', label: 'Icon', searchable: false, orderable: false }),
       new Header({ id: 'h7', label: 'Header 7' }),
     ];
     const rows: Array<Row> = [
@@ -51,7 +56,7 @@ export default Vue.extend({
           new Label({ label: 'L1 - Text3', color: LabelColor.Primary }),
           new Link({ label: 'L1 - Text4', url: 'https://test.com' }),
           new Image({ label: 'L1 - Text5', align: 'center', height: 24, width: 24, url: 'https://images.sftcdn.net/images/t_app-logo-l,f_auto/p/93c11dcc-9ecb-49d4-971a-357372192727/4021352198/undefined-icon.png' }),
-          new Cell({ label: 'L1 - Text6' }),
+          new Icon({ label: '', icon: 'fa-search', color: 'red', size: '14px', align: 'center', clickable: true }),
           new Cell({ label: 'L1 - Text7', align: 'right' }),
         ],
       }),
@@ -63,7 +68,7 @@ export default Vue.extend({
           new Label({ label: 'L2 - Text3', color: LabelColor.Info }),
           new Link({ label: 'L2 - Text4', route: 'test' }),
           new Image({ label: 'L1 - Text5', align: 'center', height: 24, width: 24, url: 'https://images.sftcdn.net/images/t_app-logo-l,f_auto/p/93c11dcc-9ecb-49d4-971a-357372192727/4021352198/undefined-icon.png' }),
-          new Cell({ label: 'L2 - Text6' }),
+          new Icon({ label: '', icon: 'fa-search', color: 'red', size: '14px', align: 'center', clickable: true }),
           new Cell({ label: 'L2 - Text7' }),
         ],
       }),
@@ -75,7 +80,7 @@ export default Vue.extend({
           new Label({ label: 'L3 - Text3', color: LabelColor.Warn }),
           new Link({ label: 'L3 - Text4', url: 'https://test.com' }),
           new Image({ label: 'L1 - Text5', align: 'center', height: 24, width: 24, url: 'https://images.sftcdn.net/images/t_app-logo-l,f_auto/p/93c11dcc-9ecb-49d4-971a-357372192727/4021352198/undefined-icon.png' }),
-          new Cell({ label: 'L3 - Text6' }),
+          new Icon({ label: '', icon: 'fa-search', color: 'red', size: '14px', align: 'center', clickable: true }),
           new Cell({ label: 'L3 - Text7' }),
         ],
       }),
@@ -87,7 +92,7 @@ export default Vue.extend({
           new Label({ label: 'L4 - Text3', color: LabelColor.Danger }),
           new Link({ label: 'L4 - Text4', url: 'https://test.com' }),
           new Image({ label: 'L1 - Text5', align: 'center', height: 24, width: 24, url: 'https://images.sftcdn.net/images/t_app-logo-l,f_auto/p/93c11dcc-9ecb-49d4-971a-357372192727/4021352198/undefined-icon.png' }),
-          new Cell({ label: 'L4 - Text6' }),
+          new Icon({ label: '', icon: 'fa-search', color: 'red', size: '14px', align: 'center', clickable: true }),
           new Cell({ label: 'L4 - Text7' }),
         ],
       }),
@@ -99,7 +104,7 @@ export default Vue.extend({
           new Label({ label: 'L5 - Text3', color: LabelColor.Default }),
           new Link({ label: 'L5 - Text4', url: 'https://test.com' }),
           new Image({ label: 'L1 - Text5', align: 'center', height: 24, width: 24, url: 'https://images.sftcdn.net/images/t_app-logo-l,f_auto/p/93c11dcc-9ecb-49d4-971a-357372192727/4021352198/undefined-icon.png' }),
-          new Cell({ label: 'L5 - Text6' }),
+          new Icon({ label: '', icon: 'fa-search', color: '#eee', size: '14px', align: 'center', clickable: false }),
           new Cell({ label: 'L5 - Text7' }),
         ],
       }),
@@ -115,12 +120,12 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+@import './themes/index.scss';
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 </style>

@@ -14,8 +14,3 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss">
-.cell-text-component {
-
-}
-</style>

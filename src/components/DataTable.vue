@@ -23,7 +23,8 @@
           :selected="isSelectedRow(row)"
           :selectable="selectableRows"
           @click="rowClick"
-          @doubleClick="rowDoubleClick" />
+          @doubleClick="rowDoubleClick"
+          @cellClick="onCellClick" />
 
       </tbody>
       <tfoot>
@@ -39,6 +40,7 @@ import Row from './Row.vue';
 import Header from './Header.vue';
 
 import RowEntity from '../entities/Row';
+import CellEntity from '../entities/Cells/Cell';
 import HeaderEntity from '../entities/Header';
 
 export default Vue.extend({
@@ -66,6 +68,9 @@ export default Vue.extend({
     },
   },
   methods: {
+    onCellClick (data: {event: MouseEvent, cell: CellEntity, row: RowEntity}) {
+      this.$emit('cellClick', data);
+    },
     handlerClick (header: HeaderEntity) {
       if (header.orderable !== false) {
         this.$emit('changeOrder', header);
@@ -108,27 +113,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style lang="scss">
-.data-table-component {
-  overflow-x: auto;
-  table {
-    width: 100%;
-    border-collapse: collapse;
-
-    // tr:nth-of-type(odd) {
-    //   background: #eee;
-    // }
-    th {
-      // background: #333;
-      // color: white;
-      font-weight: bold;
-    }
-    td, th {
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-  }
-
-}
-</style>

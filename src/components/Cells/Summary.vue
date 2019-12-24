@@ -47,9 +47,3 @@ export default Vue.extend({
 
 });
 </script>
-
-<style lang="scss">
-.cell-summary-component {
-  cursor: pointer;
-}
-</style>

@@ -1,6 +1,6 @@
 import Cell, { CellOptions } from './Cell';
 
-export interface LinkOptions extends CellOptions {
+export interface ImageOptions extends CellOptions {
   url: string,
   height?: string | number,
   width?: string | number,
@@ -11,7 +11,7 @@ export default class Link extends Cell {
   public height: string | number;
   public width: string | number;
 
-  constructor (options: LinkOptions) {
+  constructor (options: ImageOptions) {
     super(options);
     this.type = 'image';
     this.url = options.url;

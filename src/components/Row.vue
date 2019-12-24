@@ -8,11 +8,13 @@
       v-for="(cell, index) in row.cells"
       :key="index"
       :style="{'text-align': cell.align}"
+      @click="onCellClick($event, cell)"
     >
       <CellSummary :cell="cell" v-if="cell.type === 'summary'" />
       <CellLabel :cell="cell" v-else-if="cell.type === 'label'" />
       <CellLink :cell="cell" v-else-if="cell.type === 'link'" />
       <CellImage :cell="cell" v-else-if="cell.type === 'image'" />
+      <CellIcon :cell="cell" v-else-if="cell.type === 'icon'" />
       <CellText :cell="cell" v-else />
     </td>
   </tr>
@@ -26,9 +28,11 @@ import CellText from './Cells/Text.vue';
 import CellLabel from './Cells/Label.vue';
 import CellLink from './Cells/Link.vue';
 import CellImage from './Cells/Image.vue';
+import CellIcon from './Cells/Icon.vue';
 import CellEntity from '../entities/Cells/Cell';
 import SummaryEntity from '../entities/Cells/Summary';
 import ImageEntity from '../entities/Cells/Image';
+import IconEntity from '../entities/Cells/Icon';
 
 export default Vue.extend({
   name: 'Row',
@@ -38,6 +42,7 @@ export default Vue.extend({
     CellLabel,
     CellLink,
     CellImage,
+    CellIcon,
   },
   props: {
     selectable: {
@@ -62,6 +67,10 @@ export default Vue.extend({
   },
 
   methods: {
+    onCellClick (event: MouseEvent, cell: CellEntity) {
+      if (!cell.clickable) return;
+      this.$emit('cellClick', { event, cell, row: this.row });
+    },
     oneClickDispatch (event: MouseEvent) {
       this.$emit('click', { row: this.row, event });
     },
@@ -87,16 +96,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style lang="scss">
-@import '../themes/index';
-.data-table-row-component {
-  &.selectable {
-    cursor: pointer,
-  }
-  &.selected {
-    background-color: $primary;
-    color: $textColorLight;
-  }
-}
-</style>

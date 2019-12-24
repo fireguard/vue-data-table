@@ -1,1 +1,129 @@
-@import './default/index.scss';
+@import './variables';
+
+.data-table-component {
+  overflow-x: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th {
+      font-weight: bold;
+    }
+    td, th {
+      border: 1px solid $tableBorder;
+      text-align: left;
+    }
+  }
+
+  .header-component {
+    padding-left: 2px;
+    padding-right: 16px;
+    position: relative;
+    vertical-align: top;
+    background-color: $backgroudColor;
+    &.orderable {
+      cursor: pointer;
+
+      .header-title {
+
+        white-space: nowrap;
+        i {
+          font-size: 14px;
+          opacity: 0.2;
+          min-width: 10px;
+          &.asc, &.desc {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+    .header-searchable {
+      position: absolute;
+      top: 3px;
+      right: 2px;
+      float: right;
+      font-size: 12px;
+      opacity: 0.4;
+      // vertical-align: bottom;
+      &.filtered {
+        color: $danger;
+        opacity: 1;
+      }
+      &.opened {
+        top: auto;
+        bottom: 3px;
+      }
+    }
+    .header-search {
+      input {
+        width: 100%;
+      }
+    }
+
+  }
+
+  .data-table-row-component {
+    &.selectable {
+      cursor: pointer,
+    }
+    &.selected {
+      background-color: $primary;
+      color: $textColorLight;
+    }
+
+    // #############################################################
+    // Cells
+    // #############################################################
+
+    .cell-icon-component {
+      padding: 4px;
+    }
+
+    .cell-label-component {
+      padding: 0 8px;
+      font-size: 0.7em;
+      border-radius: 5px;
+      -webkit-box-shadow: 0px 0px 0px 1px rgba(255,255,255,1);
+      -moz-box-shadow: 0px 0px 0px 1px rgba(255,255,255,1);
+      box-shadow: 0px 0px 0px 1px rgba(255,255,255,1);
+      &.default {
+        background-color: $backgroudColor;
+        color: $textColorDark;
+      }
+      &.primary {
+        background-color: $primary;
+        color: $textColorLight;
+      }
+      &.info {
+        background-color: $info;
+        color: $textColorLight;
+      }
+      &.warn {
+        background-color: $warn;
+        color: $textColorLight;
+      }
+      &.danger {
+        background-color: $danger;
+        color: $textColorLight;
+      }
+    }
+
+    .cell-link-component {
+      color: $primary;
+
+      a:any-link {
+        color: $primary;
+        .selected & {
+          color: $textColorLight;
+        }
+      }
+
+      .selected & {
+        color: $textColorLight;
+      }
+    }
+
+    .cell-summary-component {
+      cursor: pointer;
+    }
+  }
+}
