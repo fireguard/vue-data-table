@@ -20,8 +20,8 @@ export default class Header {
   constructor (options: HeaderOptions) {
     this.id = options.id || 'text';
     this.label = options.label || '';
-    this.searchable = options.searchable || true;
-    this.orderable = options.orderable || true;
+    this.searchable = options.searchable !== false;
+    this.orderable = options.orderable !== false;
     this.align = options.align || 'left';
     this.minWidth = options.minWidth || '0';
     this.orderDirection = options.orderDirection || 'asc';

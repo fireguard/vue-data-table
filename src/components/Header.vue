@@ -3,9 +3,25 @@
     class="header-component"
     :class="getHeaderClasses()"
     :style="{'minWidth': header.minWidth || '0', 'textAlign': header.align }"
-    @click="handlerClick"
   >
-    {{ header.label }}
+    <span class="header-title" @click="handlerClick">
+      <i class="fas" :class="getIconClass()" ></i>
+      {{ header.label }}
+    </span>
+    <div class="header-search" v-if="this.showSearch && this.header.searchable">
+      <input type="search" v-model="search" @change="changedSearch"/>
+    </div>
+    <div
+      class="header-searchable"
+      :class="{
+        'filtered': this.search.length !== 0 && this.search === this.lastSearch,
+        'opened': this.showSearch
+      }"
+      v-if="header.searchable"
+      @click="clickShowSearch"
+    >
+      <i class="fas" :class="{'fa-search': this.search.length === 0, 'fa-filter': this.search.length !== 0}"></i>
+    </div>
   </th>
 </template>
 
@@ -29,60 +45,91 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    showSearch: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data () {
+    return {
+      search: '',
+      lastSearch: '',
+    };
   },
   methods: {
+    changedSearch () {
+      this.$emit('search', { header: this.header, q: this.search });
+      this.lastSearch = this.search;
+    },
+    clickShowSearch () {
+      this.$emit('changeShowSearch', !this.showSearch);
+    },
     handlerClick () {
       this.$emit('click', this.header);
     },
     getHeaderClasses () {
       let classes = [];
-      if (this.header.searchable) {
-        classes.push('searchable');
-      }
-      if (this.header.orderable !== false) {
+      if (this.header.orderable) {
         classes.push('orderable');
       }
-      if (this.header.orderable !== false && this.ordered) {
+      if (this.header.orderable && this.ordered) {
         classes.push(this.header.orderDirection === 'desc' ? 'desc' : 'asc');
       }
       return classes;
+    },
+    getIconClass () {
+      if (this.ordered && this.header.orderDirection === 'desc') return 'fa-sort-alpha-down desc';
+      if (this.ordered && this.header.orderDirection === 'asc') return 'fa-sort-alpha-up asc';
+
+      return 'fa-sort';
     },
   },
 });
 </script>
 
 <style lang="scss">
+@import '../themes/index';
 .header-component {
+  padding-right: 16px;
+  position: relative;
+  vertical-align: top;
+  background-color: $backgroudColor;
   &.orderable {
     cursor: pointer;
-    &::before {
-      padding: 1px 0;
-      content: "\f0dc";
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      font-size: 14px;
-      opacity: 0.2;
-    }
-    &.asc::before {
-      content: "\f15d";
-      opacity: 0.7;
-    }
-    &.desc::before {
-      content: "\f882";
-      opacity: 0.7;
+
+    .header-title {
+      i {
+        font-size: 14px;
+        opacity: 0.2;
+        min-width: 10px;
+        &.asc, &.desc {
+          opacity: 0.7;
+        }
+      }
     }
   }
-  &.searchable {
-    &::after {
-      cursor: default;
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      content: "\f002";
-      font-size: 12px;
-      padding: 3px;
-      float: right;
-      opacity: 0.4;
+  .header-searchable {
+    position: absolute;
+    top: 3px;
+    right: 2px;
+    float: right;
+    font-size: 12px;
+    opacity: 0.4;
+    vertical-align: bottom;
+    &.filtered {
+      color: $danger;
+      opacity: 1;
+    }
+    &.opened {
+      top: auto;
+      bottom: 3px;
     }
   }
+  .header-search {
+    input {
+      width: 100%;
+    }
+  }
+
 }
 </style>

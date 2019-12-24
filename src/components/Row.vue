@@ -75,12 +75,14 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+@import '../themes/index';
 .data-table-row-component {
   &.selectable {
     cursor: pointer,
   }
   &.selected {
-    background-color: red;
+    background-color: $primary;
+    color: $textColorLight;
   }
 }
 </style>

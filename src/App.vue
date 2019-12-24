@@ -35,7 +35,7 @@ export default Vue.extend({
       new Header({ id: 'name', label: 'Header 2', minWidth: '400px' }),
       new Header({ id: 'h3', label: 'Header 3', orderDirection: 'asc' }),
       new Header({ id: 'h4', label: 'Header 4', orderDirection: 'asc' }),
-      new Header({ id: 'h5', label: 'Header 5' }),
+      new Header({ id: 'h5', label: 'Header 5', searchable: false }),
       new Header({ id: 'h6', label: 'Header 6' }),
       new Header({ id: 'h7', label: 'Header 7' }),
     ];

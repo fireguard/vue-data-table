@@ -8,7 +8,10 @@
             :key="header.id || index"
             :header="header"
             :ordered="header.id === orderBy"
-            @click="heanderClick" />
+            :showSearch="showSearch"
+            @click="handlerClick"
+            @search="handlerSearch"
+            @changeShowSearch="changeShowSearch" />
         </tr>
       </thead>
       <tbody>
@@ -63,10 +66,13 @@ export default Vue.extend({
     },
   },
   methods: {
-    heanderClick (header: HeaderEntity) {
+    handlerClick (header: HeaderEntity) {
       if (header.orderable !== false) {
         this.$emit('changeOrder', header);
       }
+    },
+    handlerSearch (search: { header: HeaderEntity, q: string}) {
+      console.error(search);
     },
     rowClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
       this.changeSelectedRow(rowClicked);
@@ -89,10 +95,15 @@ export default Vue.extend({
       }
       this.selectedRows = [rowClicked.row.id];
     },
+    changeShowSearch (showSearch: boolean) {
+      console.error('changeShowSearch', showSearch);
+      this.showSearch = showSearch;
+    },
   },
   data () {
     return {
       selectedRows: [] as (string|number)[],
+      showSearch: false as boolean,
     };
   },
 });
