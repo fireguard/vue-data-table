@@ -4,7 +4,11 @@
     :class="{'selectable': selectable, 'selected': selected}"
     @click="click"
   >
-    <td v-for="(cell, index) in row.cells" :key="index">
+    <td
+      v-for="(cell, index) in row.cells"
+      :key="index"
+      :style="{'text-align': cell.align}"
+    >
       <CellSummary :cell="cell" v-if="cell.type === 'summary'" />
       <CellLabel :cell="cell" v-else-if="cell.type === 'label'" />
       <CellText :cell="cell" v-else />

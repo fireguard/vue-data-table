@@ -19,5 +19,6 @@ export default class Label extends Cell {
     super(options);
     this.type = 'label';
     this.color = options.color || Color.Default;
+    this.align = options.align || 'center';
   }
 }

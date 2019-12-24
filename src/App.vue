@@ -45,12 +45,12 @@ export default Vue.extend({
         id: 1,
         cells: [
           new Summary({ label: 'sdnfjsbjfbsdjbfjhbsdhbfhsd', size: 10, reversed: true }),
-          new Cell({ label: 'L1 - Text2' }),
+          new Cell({ label: 'L1 - Text2', align: 'center' }),
           new Label({ label: 'L1 - Text3', color: LabelColor.Primary }),
           new Cell({ label: 'L1 - Text4' }),
           new Cell({ label: 'L1 - Text5' }),
           new Cell({ label: 'L1 - Text6' }),
-          new Cell({ label: 'L1 - Text7' }),
+          new Cell({ label: 'L1 - Text7', align: 'right' }),
         ],
       }),
       new Row({

@@ -98,6 +98,7 @@ export default Vue.extend({
     cursor: pointer;
 
     .header-title {
+      white-space: nowrap;
       i {
         font-size: 14px;
         opacity: 0.2;
@@ -115,7 +116,7 @@ export default Vue.extend({
     float: right;
     font-size: 12px;
     opacity: 0.4;
-    vertical-align: bottom;
+    // vertical-align: bottom;
     &.filtered {
       color: $danger;
       opacity: 1;
