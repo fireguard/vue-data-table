@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import LabelEntity from '../../entities/Label';
+import LabelEntity from '../../entities/Cells/Label';
 
 export default Vue.extend({
   name: 'CellLabel',

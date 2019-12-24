@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import CellEntity from '../../entities/Cell';
+import CellEntity from '../../entities/Cells/Cell';
 
 export default Vue.extend({
   name: 'CellText',

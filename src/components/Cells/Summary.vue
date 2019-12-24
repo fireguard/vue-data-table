@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
-import SummaryEntity from '../../entities/Summary';
+import SummaryEntity from '../../entities/Cells/Summary';
 
 export default Vue.extend({
   name: 'CellSummary',

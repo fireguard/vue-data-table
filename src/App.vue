@@ -15,9 +15,10 @@ import Vue from 'vue';
 import DataTable from './components/DataTable.vue';
 import Row from './entities/Row';
 import Header from './entities/Header';
-import Summary from './entities/Summary';
-import Label, { Color as LabelColor } from './entities/Label';
-import Cell from './entities/Cell';
+import Cell from './entities/Cells/Cell';
+import Summary from './entities/Cells/Summary';
+import Link from './entities/Cells/Link';
+import Label, { Color as LabelColor } from './entities/Cells/Label';
 
 export default Vue.extend({
   name: 'app',
@@ -35,7 +36,7 @@ export default Vue.extend({
       new Header({ id: 'summary', label: 'Summary' }),
       new Header({ id: 'text', label: 'Text', minWidth: '400px' }),
       new Header({ id: 'label', label: 'Label', orderDirection: 'asc', align: 'center' }),
-      new Header({ id: 'h4', label: 'Header 4', orderDirection: 'asc' }),
+      new Header({ id: 'h4', label: 'Link', orderDirection: 'asc' }),
       new Header({ id: 'h5', label: 'Header 5', searchable: false }),
       new Header({ id: 'h6', label: 'Header 6' }),
       new Header({ id: 'h7', label: 'Header 7' }),
@@ -47,7 +48,7 @@ export default Vue.extend({
           new Summary({ label: 'sdnfjsbjfbsdjbfjhbsdhbfhsd', size: 10, reversed: true }),
           new Cell({ label: 'L1 - Text2', align: 'center' }),
           new Label({ label: 'L1 - Text3', color: LabelColor.Primary }),
-          new Cell({ label: 'L1 - Text4' }),
+          new Link({ label: 'L1 - Text4', url: 'https://test.com' }),
           new Cell({ label: 'L1 - Text5' }),
           new Cell({ label: 'L1 - Text6' }),
           new Cell({ label: 'L1 - Text7', align: 'right' }),
@@ -59,7 +60,7 @@ export default Vue.extend({
           new Summary({ label: '2dnfjsbjfbsdjbfjhbsdhbfhsd', size: 10, reversed: true }),
           new Cell({ label: 'L2 - Text2' }),
           new Label({ label: 'L2 - Text3', color: LabelColor.Info }),
-          new Cell({ label: 'L2 - Text4' }),
+          new Link({ label: 'L2 - Text4', route: 'test' }),
           new Cell({ label: 'L2 - Text5' }),
           new Cell({ label: 'L2 - Text6' }),
           new Cell({ label: 'L2 - Text7' }),
@@ -71,7 +72,7 @@ export default Vue.extend({
           new Summary({ label: '2dnfjsbjfbsdjbfjhbsdhbfhsd', size: 10, reversed: true }),
           new Cell({ label: 'L3 - Text2' }),
           new Label({ label: 'L3 - Text3', color: LabelColor.Warn }),
-          new Cell({ label: 'L3 - Text4' }),
+          new Link({ label: 'L3 - Text4', url: 'https://test.com' }),
           new Cell({ label: 'L3 - Text5' }),
           new Cell({ label: 'L3 - Text6' }),
           new Cell({ label: 'L3 - Text7' }),
@@ -83,7 +84,7 @@ export default Vue.extend({
           new Summary({ label: '2dnfjsbjfbsdjbfjhbsdhbfhsd', size: 10, reversed: true }),
           new Cell({ label: 'L4 - Text2' }),
           new Label({ label: 'L4 - Text3', color: LabelColor.Danger }),
-          new Cell({ label: 'L4 - Text4' }),
+          new Link({ label: 'L4 - Text4', url: 'https://test.com' }),
           new Cell({ label: 'L4 - Text5' }),
           new Cell({ label: 'L4 - Text6' }),
           new Cell({ label: 'L4 - Text7' }),
@@ -95,7 +96,7 @@ export default Vue.extend({
           new Summary({ label: '5dnfjsbjfbsdjbfjhbsdhbfhsd', size: 10, reversed: true }),
           new Cell({ label: 'L5 - Text2' }),
           new Label({ label: 'L5 - Text3', color: LabelColor.Default }),
-          new Cell({ label: 'L5 - Text4' }),
+          new Link({ label: 'L5 - Text4', url: 'https://test.com' }),
           new Cell({ label: 'L5 - Text5' }),
           new Cell({ label: 'L5 - Text6' }),
           new Cell({ label: 'L5 - Text7' }),

@@ -11,6 +11,7 @@
     >
       <CellSummary :cell="cell" v-if="cell.type === 'summary'" />
       <CellLabel :cell="cell" v-else-if="cell.type === 'label'" />
+      <CellLink :cell="cell" v-else-if="cell.type === 'link'" />
       <CellText :cell="cell" v-else />
     </td>
   </tr>
@@ -18,12 +19,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import RowEntity from '../entities/Row';
 import CellSummary from './Cells/Summary.vue';
 import CellText from './Cells/Text.vue';
 import CellLabel from './Cells/Label.vue';
-import RowEntity from '../entities/Row';
-import CellEntity from '../entities/Cell';
-import SummaryEntity from '../entities/Summary';
+import CellLink from './Cells/Link.vue';
+import CellEntity from '../entities/Cells/Cell';
+import SummaryEntity from '../entities/Cells/Summary';
 
 export default Vue.extend({
   name: 'Row',
@@ -31,6 +33,7 @@ export default Vue.extend({
     CellText,
     CellSummary,
     CellLabel,
+    CellLink,
   },
   props: {
     selectable: {

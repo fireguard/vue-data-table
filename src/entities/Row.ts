@@ -1,4 +1,4 @@
-import Cell from './Cell';
+import Cell from './Cells/Cell';
 
 export interface RowOptions {
   id: string | number,
