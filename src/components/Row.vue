@@ -12,6 +12,7 @@
       <CellSummary :cell="cell" v-if="cell.type === 'summary'" />
       <CellLabel :cell="cell" v-else-if="cell.type === 'label'" />
       <CellLink :cell="cell" v-else-if="cell.type === 'link'" />
+      <CellImage :cell="cell" v-else-if="cell.type === 'image'" />
       <CellText :cell="cell" v-else />
     </td>
   </tr>
@@ -24,8 +25,10 @@ import CellSummary from './Cells/Summary.vue';
 import CellText from './Cells/Text.vue';
 import CellLabel from './Cells/Label.vue';
 import CellLink from './Cells/Link.vue';
+import CellImage from './Cells/Image.vue';
 import CellEntity from '../entities/Cells/Cell';
 import SummaryEntity from '../entities/Cells/Summary';
+import ImageEntity from '../entities/Cells/Image';
 
 export default Vue.extend({
   name: 'Row',
@@ -34,6 +37,7 @@ export default Vue.extend({
     CellSummary,
     CellLabel,
     CellLink,
+    CellImage,
   },
   props: {
     selectable: {

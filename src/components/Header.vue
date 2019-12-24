@@ -5,7 +5,7 @@
     :style="{'minWidth': header.minWidth || '0', 'textAlign': header.align }"
   >
     <span class="header-title" @click="handlerClick">
-      <i class="fas" :class="getIconClass()" ></i>
+      <i class="fas" :class="getIconClass()" v-if="header.orderable"></i>
       {{ header.label }}
     </span>
     <div class="header-search" v-if="this.showSearch && this.header.searchable">
