@@ -5,8 +5,10 @@
       :rows="rows"
       :selectableRows="true"
       :orderBy="orderBy"
+      :pagination="pagination"
       @changeOrder="changeOrder"
       @cellClick="onCellClick"
+      @changePage="changePage"
     />
   </div>
 </template>
@@ -22,6 +24,7 @@ import Link from './entities/Cells/Link';
 import Image from './entities/Cells/Image';
 import Icon from './entities/Cells/Icon';
 import Label, { Color as LabelColor } from './entities/Cells/Label';
+import Pagination from './entities/Pagination';
 
 export default Vue.extend({
   name: 'app',
@@ -35,6 +38,11 @@ export default Vue.extend({
     },
     onCellClick (data: {event: MouseEvent, cell: Cell, row: Row}) {
       console.error(data);
+    },
+    changePage (page: number) {
+      if (page !== this.pagination.currentPage) {
+        this.pagination.currentPage = page;
+      }
     },
   },
   data () {
@@ -109,9 +117,16 @@ export default Vue.extend({
         ],
       }),
     ];
+
+    const pagination = new Pagination({
+      perPage: 10,
+      totalPages: 100,
+    });
+
     return {
       headers,
       rows,
+      pagination,
       orderBy: null as string|null,
     };
   },
@@ -122,10 +137,11 @@ export default Vue.extend({
 <style lang="scss">
 @import './themes/index.scss';
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin-top: 20px;
+  font-size: 14px;
 }
 </style>

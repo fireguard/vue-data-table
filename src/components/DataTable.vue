@@ -1,36 +1,44 @@
 <template>
   <div class="data-table-component">
-    <table>
-      <thead>
-        <tr >
-          <Header
-            v-for="(header, index) in headers"
-            :key="header.id || index"
-            :header="header"
-            :ordered="header.id === orderBy"
-            :showSearch="showSearch"
-            @click="handlerClick"
-            @search="handlerSearch"
-            @changeShowSearch="changeShowSearch" />
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          is="Row"
-          v-for="row in rows"
-          :row="row"
-          :key="row.id"
-          :selected="isSelectedRow(row)"
-          :selectable="selectableRows"
-          @click="rowClick"
-          @doubleClick="rowDoubleClick"
-          @cellClick="onCellClick" />
+    <div class="data-table-responsive">
+      <table>
+        <thead>
+          <tr >
+            <Header
+              v-for="(header, index) in headers"
+              :key="header.id || index"
+              :header="header"
+              :ordered="header.id === orderBy"
+              :showSearch="showSearch"
+              @click="handlerClick"
+              @search="handlerSearch"
+              @changeShowSearch="changeShowSearch" />
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            is="Row"
+            v-for="row in rows"
+            :row="row"
+            :key="row.id"
+            :selected="isSelectedRow(row)"
+            :selectable="selectableRows"
+            @click="rowClick"
+            @doubleClick="rowDoubleClick"
+            @cellClick="onCellClick" />
 
-      </tbody>
-      <tfoot>
-        <!-- <th>Footer</th> -->
-      </tfoot>
-    </table>
+        </tbody>
+        <tfoot>
+          <!-- <th>Footer</th> -->
+        </tfoot>
+      </table>
+    </div>
+
+    <Pagination
+      v-if="pagination"
+      :pagination="pagination"
+      @changePage="changePage"
+    />
   </div>
 </template>
 
@@ -38,16 +46,19 @@
 import Vue from 'vue';
 import Row from './Row.vue';
 import Header from './Header.vue';
+import Pagination from './Pagination.vue';
 
 import RowEntity from '../entities/Row';
 import CellEntity from '../entities/Cells/Cell';
 import HeaderEntity from '../entities/Header';
+import PaginationEntity from '../entities/Pagination';
 
 export default Vue.extend({
   name: 'DataTable',
   components: {
     Header,
     Row,
+    Pagination,
   },
   props: {
     orderBy: {
@@ -65,6 +76,10 @@ export default Vue.extend({
     selectableRows: {
       type: Boolean,
       default: false,
+    },
+    pagination: {
+      type: PaginationEntity,
+      default: null,
     },
   },
   methods: {
@@ -103,6 +118,9 @@ export default Vue.extend({
     changeShowSearch (showSearch: boolean) {
       console.error('changeShowSearch', showSearch);
       this.showSearch = showSearch;
+    },
+    changePage (page: number) {
+      this.$emit('changePage', page);
     },
   },
   data () {
