@@ -6,6 +6,7 @@
       :selectableRows="true"
       :orderBy="orderBy"
       :pagination="pagination"
+      :loading="loading"
       @changeOrder="changeOrder"
       @cellClick="onCellClick"
       @changePage="changePage"
@@ -128,6 +129,7 @@ export default Vue.extend({
       rows,
       pagination,
       orderBy: null as string|null,
+      loading: false as boolean,
     };
   },
 

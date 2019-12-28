@@ -25,15 +25,22 @@
             :selectable="selectableRows"
             @click="rowClick"
             @doubleClick="rowDoubleClick"
-            @cellClick="onCellClick" />
-
+            @cellClick="onCellClick"
+          />
+          <tr v-if="!loading && rows.length === 0" class="data-table-row-empty">
+            <td :colspan="headers.length">
+              No data availiable
+            </td>
+          </tr>
+          <tr v-if="loading && rows.length === 0" class="data-table-row-loading">
+            <td :colspan="headers.length">
+              <i class="fa fa-spinner fa-pulse"></i>
+            </td>
+          </tr>
         </tbody>
-        <tfoot>
-          <!-- <th>Footer</th> -->
-        </tfoot>
       </table>
     </div>
-
+    <ProgressIndeterminate v-if="loading && rows.length !== 0" />
     <Pagination
       v-if="pagination"
       :pagination="pagination"
@@ -47,6 +54,7 @@ import Vue from 'vue';
 import Row from './Row.vue';
 import Header from './Header.vue';
 import Pagination from './Pagination.vue';
+import ProgressIndeterminate from './ProgressIndeterminate.vue';
 
 import RowEntity from '../entities/Row';
 import CellEntity from '../entities/Cells/Cell';
@@ -59,6 +67,7 @@ export default Vue.extend({
     Header,
     Row,
     Pagination,
+    ProgressIndeterminate,
   },
   props: {
     orderBy: {
@@ -80,6 +89,10 @@ export default Vue.extend({
     pagination: {
       type: PaginationEntity,
       default: null,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
