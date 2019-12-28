@@ -7,6 +7,7 @@
       :orderBy="orderBy"
       :pagination="pagination"
       :loading="loading"
+      :translation="translation"
       @changeOrder="changeOrder"
       @cellClick="onCellClick"
       @changePage="changePage"
@@ -126,10 +127,17 @@ export default Vue.extend({
 
     return {
       headers,
-      rows,
+      rows: [],
       pagination,
       orderBy: null as string|null,
       loading: false as boolean,
+      translation: {
+        empty: 'Nenhum registro encontrado',
+        pagination: {
+          page: 'Página',
+          of: 'de',
+        },
+      },
     };
   },
 

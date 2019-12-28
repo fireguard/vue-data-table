@@ -14,8 +14,8 @@
     </span>
     <span class="pagination-separator" />
     <span class="definition-page">
-      Página
-      <input type="text" v-model="currentPage" @change="inputChange" /> de {{ pagination.totalPages }}
+      {{ translation.page || 'Page' }}
+      <input type="text" v-model="currentPage" @change="inputChange" /> {{ translation.of || 'of' }} {{ pagination.totalPages }}
     </span>
     <span class="pagination-separator" />
     <span class="pagination-icon next-page-action"
@@ -43,6 +43,10 @@ export default Vue.extend({
     pagination: {
       type: PaginationEntity,
       required: true,
+    },
+    translation: {
+      type: Object,
+      default: {} as any,
     },
   },
   methods: {

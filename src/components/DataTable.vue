@@ -29,7 +29,7 @@
           />
           <tr v-if="!loading && rows.length === 0" class="data-table-row-empty">
             <td :colspan="headers.length">
-              No data availiable
+              {{ translation.empty || 'No data availiable'}}
             </td>
           </tr>
           <tr v-if="loading && rows.length === 0" class="data-table-row-loading">
@@ -44,6 +44,7 @@
     <Pagination
       v-if="pagination"
       :pagination="pagination"
+      :translation="translation.pagination || {}"
       @changePage="changePage"
     />
   </div>
@@ -73,6 +74,10 @@ export default Vue.extend({
     orderBy: {
       type: String,
       default: null,
+    },
+    translation: {
+      type: Object,
+      default: {} as any,
     },
     rows: {
       type: Array as () => Array<RowEntity>,
