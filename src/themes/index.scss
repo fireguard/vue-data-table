@@ -167,6 +167,12 @@ $textColorDark: #000;
       text-align: center;
     }
 
+    .select-per-page {
+      select {
+        border-color: $tableBorder;
+      }
+    }
+
     .pagination-icon {
       padding: 0 4px;
       color: #888;
@@ -186,6 +192,7 @@ $textColorDark: #000;
       input {
         width: 36px;
         text-align: center;
+        border: 1px solid $backgroudColor;
       }
     }
 

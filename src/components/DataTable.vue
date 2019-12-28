@@ -46,6 +46,7 @@
       :pagination="pagination"
       :translation="translation.pagination || {}"
       @changePage="changePage"
+      @changePerPage="changePerPage"
     />
   </div>
 </template>
@@ -139,6 +140,9 @@ export default Vue.extend({
     },
     changePage (page: number) {
       this.$emit('changePage', page);
+    },
+    changePerPage (perPage: number) {
+      this.$emit('changePerPage', perPage);
     },
   },
   data () {

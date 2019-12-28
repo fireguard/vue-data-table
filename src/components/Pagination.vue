@@ -30,6 +30,16 @@
     >
       <i class="fas fa-angle-double-right"></i>
     </span>
+
+    <span class="select-per-page">
+      <select name="per-page" @change="changePerPage" v-model="perPage">
+        <option
+            v-for="(option, index) in pagination.perPageOptions"
+            :key="index"
+            :value="option"
+        >{{option}}</option>
+      </select>
+    </span>
   </div>
 </template>
 
@@ -54,6 +64,11 @@ export default Vue.extend({
       this.currentPage = page;
       if (this.pagination.currentPage !== this.currentPage) {
         this.$emit('changePage', Number(page));
+      }
+    },
+    changePerPage () {
+      if (this.pagination.perPage !== this.perPage) {
+        this.$emit('changePerPage', Number(this.perPage));
       }
     },
     hasNextPage () {
@@ -82,10 +97,12 @@ export default Vue.extend({
   },
   created () {
     this.currentPage = this.pagination.currentPage;
+    this.perPage = this.pagination.perPage;
   },
   data () {
     return {
       currentPage: 0 as number,
+      perPage: 0 as number,
     };
   },
 });

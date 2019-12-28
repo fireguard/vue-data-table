@@ -9,6 +9,7 @@ export interface PaginationOptions {
   lastPageUrl?: string,
   nextPageUrl?: string,
   prevPageUrl?: string,
+  perPageOptions?: number[],
 }
 
 export default class Pagination {
@@ -20,6 +21,7 @@ export default class Pagination {
   public lastPageUrl?: string;
   public nextPageUrl?: string;
   public prevPageUrl?: string;
+  public perPageOptions: number[];
 
   constructor (options: PaginationOptions) {
     this.total = options.total || 0;
@@ -31,5 +33,6 @@ export default class Pagination {
     this.lastPageUrl = options.lastPageUrl;
     this.nextPageUrl = options.nextPageUrl;
     this.prevPageUrl = options.prevPageUrl;
+    this.perPageOptions = options.perPageOptions || [10, 30, 50];
   }
 }

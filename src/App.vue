@@ -11,6 +11,7 @@
       @changeOrder="changeOrder"
       @cellClick="onCellClick"
       @changePage="changePage"
+      @changePerPage="changePerPage"
     />
   </div>
 </template>
@@ -44,6 +45,12 @@ export default Vue.extend({
     changePage (page: number) {
       if (page !== this.pagination.currentPage) {
         this.pagination.currentPage = page;
+      }
+    },
+    changePerPage (perPage: number) {
+      if (perPage !== this.pagination.perPage) {
+        this.pagination.perPage = perPage;
+        console.error('changePerPage', this.pagination.perPage);
       }
     },
   },
