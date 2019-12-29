@@ -134,7 +134,7 @@ export default Vue.extend({
 
     return {
       headers,
-      rows: [],
+      rows,
       pagination,
       orderBy: null as string|null,
       loading: false as boolean,
