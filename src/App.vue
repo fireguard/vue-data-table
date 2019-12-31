@@ -41,6 +41,8 @@
           @click="addNewRecord"
         />
 
+        <ActionButtonSeparator />
+
         <Button
           icon="fa-gavel"
           iconClass="fas"
@@ -54,6 +56,8 @@
           type="info-link"
           @click="addNewRecord"
         />
+
+        <ActionButtonSeparator />
 
         <Button
           icon="fa-plus"
@@ -132,6 +136,7 @@
 import Vue from 'vue';
 import DataTable from './components/DataTable.vue';
 import Button from './components/Button.vue';
+import ActionButtonSeparator from './components/ActionButtonSeparator.vue';
 import Row from './entities/Row';
 import Header from './entities/Header';
 import Cell from './entities/Cells/Cell';
@@ -147,6 +152,7 @@ export default Vue.extend({
   components: {
     DataTable,
     Button,
+    ActionButtonSeparator,
   },
   methods: {
     changeOrder (header: Header) {
