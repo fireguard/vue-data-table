@@ -34,7 +34,7 @@
     }
   }
 
-  .header-component {
+  .data-table-header-component {
     padding: 3px 20px 3px 2px;
     position: relative;
     vertical-align: top;
@@ -181,84 +181,7 @@
 
   }
 
-  .pagination-component {
-    font-size: 0.9em;
-    width: 100%;
-
-    .select-per-page {
-      margin-left: 15px;
-      select {
-        border: 1px solid $tableBorder;
-        border-radius: 2px;
-        padding: 2px 6px;
-      }
-    }
-
-    .pagination-icon {
-      padding: 0 4px;
-      color: #888;
-      cursor: pointer;
-      i {
-        font-size: 1.3em;
-
-      }
-      &.disabled {
-        color: #ddd;
-        cursor: no-drop;
-      }
-    }
-
-    .definition-page {
-      color: #2c2c2c;
-      input {
-        width: 36px;
-        text-align: center;
-        border: 1px solid $backgroudColor;
-      }
-    }
-
-    .pagination-separator {
-      height: 20px;
-      border-right: 1px solid $tableBorder;
-      margin: 0 6px;
-    }
-  }
-
-  .progress-indeterminate-component {
-    position: relative;
-    width: 100%;
-    height: 2px;
-    overflow-x: hidden;
-
-    .progress-bar {
-      position: absolute;
-      opacity: 0.4;
-      background: $primary;
-      width: 100%;
-      height: 2px;
-    }
-
-    .progress-indeterminate {
-      position: absolute;
-      background:$primary;
-      height: 2px;
-
-      &.inc {
-        animation: increase 2s infinite;
-      }
-
-      &.dec {
-        animation: decrease 2s 0.5s infinite;
-      }
-    }
-
-    @keyframes increase {
-      from { left: -5%; width: 5%; }
-      to { left: 130%; width: 100%;}
-    }
-    @keyframes decrease {
-      from { left: -80%; width: 80%; }
-      to { left: 110%; width: 10%;}
-    }
-  }
+  @import './components/pagination-component';
+  @import './components/action-button-component';
+  @import './components/progress-indeterminate-component';
 }

@@ -15,25 +15,25 @@
       @changeSelection="changeSelection"
     >
       <template v-slot:actions>
-        <Button
+        <ActionButton
           icon="fa-plus"
           type="primary-link"
           description="Cadastrar usuário"
           @click="addNewRecord"
         />
-        <Button
+        <ActionButton
           icon="fa-edit"
           type="warn-link"
           description="Editar usuário"
           @click="addNewRecord"
         />
-        <Button
+        <ActionButton
           icon="fa-trash"
           type="danger-link"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-sync-alt"
           iconClass="fas"
           type="success-link"
@@ -43,14 +43,14 @@
 
         <ActionButtonSeparator />
 
-        <Button
+        <ActionButton
           icon="fa-gavel"
           iconClass="fas"
           type="info-link"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-exchange-alt"
           iconClass="fas"
           type="info-link"
@@ -59,69 +59,69 @@
 
         <ActionButtonSeparator />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Default"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Default"
           type="default-outline"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Primary"
           type="primary"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Primary"
           type="primary-outline"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Warn"
           type="warn"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Warn"
           type="warn-outline"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Info"
           type="info"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Info"
           type="info-outline"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Danger"
           type="danger"
           @click="addNewRecord"
         />
 
-        <Button
+        <ActionButton
           icon="fa-plus"
           label="Danger"
           type="danger-outline"
@@ -134,9 +134,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import DataTable from './components/DataTable.vue';
-import Button from './components/Button.vue';
-import ActionButtonSeparator from './components/ActionButtonSeparator.vue';
+import { DataTable, ActionButton, ActionButtonSeparator } from './index';
 import Row from './entities/Row';
 import Header from './entities/Header';
 import Cell from './entities/Cells/Cell';
@@ -151,7 +149,7 @@ export default Vue.extend({
   name: 'app',
   components: {
     DataTable,
-    Button,
+    ActionButton,
     ActionButtonSeparator,
   },
   methods: {

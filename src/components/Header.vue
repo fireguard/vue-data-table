@@ -1,6 +1,6 @@
 <template>
   <th
-    class="header-component"
+    class="data-table-header-component"
     :class="getHeaderClasses()"
     :style="{'minWidth': header.minWidth || '0', 'textAlign': header.align }"
   >

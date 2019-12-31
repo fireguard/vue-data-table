@@ -1,0 +1,42 @@
+.pagination-component {
+  font-size: 0.9em;
+  width: 100%;
+
+  .select-per-page {
+    margin-left: 15px;
+    select {
+      border: 1px solid $tableBorder;
+      border-radius: 2px;
+      padding: 2px 6px;
+    }
+  }
+
+  .pagination-icon {
+    padding: 0 4px;
+    color: #888;
+    cursor: pointer;
+    i {
+      font-size: 1.3em;
+
+    }
+    &.disabled {
+      color: #ddd;
+      cursor: no-drop;
+    }
+  }
+
+  .definition-page {
+    color: #2c2c2c;
+    input {
+      width: 36px;
+      text-align: center;
+      border: 1px solid $backgroudColor;
+    }
+  }
+
+  .pagination-separator {
+    height: 20px;
+    border-right: 1px solid $tableBorder;
+    margin: 0 6px;
+  }
+}
