@@ -41,13 +41,21 @@
       </table>
     </div>
     <ProgressIndeterminate v-if="loading && rows.length !== 0" />
-    <Pagination
-      v-if="pagination"
-      :pagination="pagination"
-      :translation="translation.pagination || {}"
-      @changePage="changePage"
-      @changePerPage="changePerPage"
-    />
+    <div class="data-table-footer">
+      <div class="data-table-footer-actions">
+        <slot name="actions"></slot>
+      </div>
+
+      <div class="data-table-footer-pagination">
+        <Pagination
+          v-if="pagination"
+          :pagination="pagination"
+          :translation="translation.pagination || {}"
+          @changePage="changePage"
+          @changePerPage="changePerPage"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -114,25 +122,27 @@ export default Vue.extend({
       console.error(search);
     },
     rowClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
-      this.changeSelectedRow(rowClicked);
+      this.changeSelection(rowClicked);
       this.$emit('rowClick', rowClicked);
     },
     rowDoubleClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
       this.$emit('rowDoubleClick', rowClicked);
     },
     isSelectedRow (row: RowEntity): boolean {
-      return this.selectedRows.indexOf(row.id) >= 0;
+      return this.selectedRows.indexOf(row) >= 0;
     },
-    changeSelectedRow (rowClicked: {row: RowEntity, event: MouseEvent}): void {
+    changeSelectedRows (rows: RowEntity[]) {
+      this.selectedRows = rows;
+      this.$emit('changeSelection', this.selectedRows);
+    },
+    changeSelection (rowClicked: {row: RowEntity, event: MouseEvent}): void {
       if (this.isSelectedRow(rowClicked.row)) {
-        this.selectedRows = this.selectedRows.filter((rowId) => rowClicked.row.id === rowId);
-        return;
+        return this.changeSelectedRows(this.selectedRows.filter((row) => rowClicked.row === row));
       }
       if (rowClicked.event.ctrlKey || rowClicked.event.metaKey) {
-        this.selectedRows.push(rowClicked.row.id);
-        return;
+        return this.changeSelectedRows([rowClicked.row].concat(this.selectedRows));
       }
-      this.selectedRows = [rowClicked.row.id];
+      return this.changeSelectedRows([rowClicked.row]);
     },
     changeShowSearch (showSearch: boolean) {
       console.error('changeShowSearch', showSearch);
@@ -147,7 +157,7 @@ export default Vue.extend({
   },
   data () {
     return {
-      selectedRows: [] as (string|number)[],
+      selectedRows: [] as RowEntity[],
       showSearch: false as boolean,
     };
   },

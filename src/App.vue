@@ -12,13 +12,23 @@
       @cellClick="onCellClick"
       @changePage="changePage"
       @changePerPage="changePerPage"
-    />
+      @changeSelection="changeSelection"
+    >
+      <template v-slot:actions>
+        <Button
+          icon="fa-plus"
+          label="New User"
+          @click="addNewRecord"
+        />
+      </template>
+    </DataTable>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import DataTable from './components/DataTable.vue';
+import Button from './components/Button.vue';
 import Row from './entities/Row';
 import Header from './entities/Header';
 import Cell from './entities/Cells/Cell';
@@ -33,6 +43,7 @@ export default Vue.extend({
   name: 'app',
   components: {
     DataTable,
+    Button,
   },
   methods: {
     changeOrder (header: Header) {
@@ -52,6 +63,13 @@ export default Vue.extend({
         this.pagination.perPage = perPage;
         console.error('changePerPage', this.pagination.perPage);
       }
+    },
+    addNewRecord (event: MouseEvent) {
+      console.error('selected', this.selectedRows);
+      console.error('addNewRecord', event);
+    },
+    changeSelection (rows: Row[]) {
+      this.selectedRows = rows;
     },
   },
   data () {
@@ -145,6 +163,7 @@ export default Vue.extend({
           of: 'de',
         },
       },
+      selectedRows: [] as Row[],
     };
   },
 

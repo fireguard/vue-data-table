@@ -1,6 +1,6 @@
 export interface HeaderOptions {
-  id: string;
-  label: string;
+id: string;
+label: string;
   searchable?: boolean;
   orderable?: boolean;
   align?: string;
@@ -10,10 +10,10 @@ export interface HeaderOptions {
 
 export default class Header {
   public id: string;
+  public align: string;
   public label: string;
   public searchable: boolean;
   public orderable: boolean;
-  public align: string;
   public minWidth: string;
   public orderDirection: string;
 
