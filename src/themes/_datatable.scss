@@ -1,0 +1,264 @@
+.data-table-component {
+  border: 1px solid $backgroudColor;
+
+  .data-table-responsive {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      th {
+        font-weight: bold;
+        border: 1px solid $tableBorder;
+        text-align: left;
+      }
+      td {
+        border: 1px solid $backgroudColor;
+        text-align: left;
+      }
+    }
+
+    .data-table-row-loading {
+      td {
+        text-align: center;
+        height: 30px;
+        border: 1px solid $backgroudColor;
+        i {
+          font-size: 16px;;
+        }
+      }
+    }
+
+    .data-table-row-empty {
+      height: 30px;
+    }
+  }
+
+  .header-component {
+    padding: 3px 20px 3px 2px;
+    position: relative;
+    vertical-align: top;
+    background-color: $backgroudColor;
+    &.orderable {
+      cursor: pointer;
+      .header-title {
+        white-space: nowrap;
+        i {
+          font-size: 14px;
+          opacity: 0.2;
+          min-width: 10px;
+          &.asc, &.desc {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+    .header-searchable {
+      position: absolute;
+      top: 5px;
+      right: 2px;
+      float: right;
+      font-size: 12px;
+      opacity: 0.4;
+      &.filtered {
+        color: $danger;
+        opacity: 1;
+      }
+      &.opened {
+        top: auto;
+        bottom: 4px;
+      }
+    }
+    .header-search {
+      padding-top: 5px;
+      input[type="search"] {
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid $tableBorder;
+      }
+    }
+
+  }
+
+  .data-table-row-component {
+    &.selectable {
+      cursor: pointer,
+    }
+    &.selected {
+      background-color: $primary;
+      color: $textColorLight;
+    }
+
+    // #############################################################
+    // Cells
+    // #############################################################
+
+    .cell-icon-component {
+      padding: 4px;
+    }
+
+    .cell-label-component {
+      padding: 2px 10px;
+      font-size: 0.7em;
+      border-radius: 6px;
+      -webkit-box-shadow: 0px 0px 0px 1px rgba(255,255,255,1);
+      -moz-box-shadow: 0px 0px 0px 1px rgba(255,255,255,1);
+      box-shadow: 0px 0px 0px 1px rgba(255,255,255,1);
+      font-weight: bold;
+      &.default {
+        background-color: $backgroudColor;
+        color: $textColorDark;
+      }
+      &.primary {
+        background-color: $primary;
+        color: $textColorLight;
+      }
+      &.info {
+        background-color: $info;
+        color: $textColorLight;
+      }
+      &.warn {
+        background-color: $warn;
+        color: $textColorLight;
+      }
+      &.danger {
+        background-color: $danger;
+        color: $textColorLight;
+      }
+    }
+
+    .cell-link-component {
+      color: $primary;
+
+      a {
+        &:any-link {
+          color: $primary;
+          .selected & {
+            color: $textColorLight;
+          }
+        }
+
+        .selected & {
+          color: $textColorLight;
+        }
+      }
+    }
+
+    .cell-summary-component {
+      cursor: pointer;
+    }
+  }
+
+  .data-table-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    .data-table-footer-actions {
+      width: 60%;
+      flex-grow: 1;
+      text-align: left;
+      padding: 6px 4px;
+
+      @media only screen and (max-width: 800px) {
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    .data-table-footer-pagination {
+      text-align: right;
+      flex-grow: 1;
+      padding: 10px 4px;
+
+      @media only screen and (max-width: 800px) {
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+  }
+
+  .pagination-component {
+    font-size: 0.9em;
+    width: 100%;
+
+    .select-per-page {
+      margin-left: 15px;
+      select {
+        border: 1px solid $tableBorder;
+        border-radius: 2px;
+        padding: 2px 6px;
+      }
+    }
+
+    .pagination-icon {
+      padding: 0 4px;
+      color: #888;
+      cursor: pointer;
+      i {
+        font-size: 1.3em;
+
+      }
+      &.disabled {
+        color: #ddd;
+        cursor: no-drop;
+      }
+    }
+
+    .definition-page {
+      color: #2c2c2c;
+      input {
+        width: 36px;
+        text-align: center;
+        border: 1px solid $backgroudColor;
+      }
+    }
+
+    .pagination-separator {
+      height: 20px;
+      border-right: 1px solid $tableBorder;
+      margin: 0 6px;
+    }
+  }
+
+  .progress-indeterminate-component {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    overflow-x: hidden;
+
+    .progress-bar {
+      position: absolute;
+      opacity: 0.4;
+      background: $primary;
+      width: 100%;
+      height: 2px;
+    }
+
+    .progress-indeterminate {
+      position: absolute;
+      background:$primary;
+      height: 2px;
+
+      &.inc {
+        animation: increase 2s infinite;
+      }
+
+      &.dec {
+        animation: decrease 2s 0.5s infinite;
+      }
+    }
+
+    @keyframes increase {
+      from { left: -5%; width: 5%; }
+      to { left: 130%; width: 100%;}
+    }
+    @keyframes decrease {
+      from { left: -80%; width: 80%; }
+      to { left: 110%; width: 10%;}
+    }
+  }
+}

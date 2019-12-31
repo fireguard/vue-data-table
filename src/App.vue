@@ -17,7 +17,110 @@
       <template v-slot:actions>
         <Button
           icon="fa-plus"
-          label="New User"
+          type="primary-link"
+          description="Cadastrar usuário"
+          @click="addNewRecord"
+        />
+        <Button
+          icon="fa-edit"
+          type="warn-link"
+          description="Editar usuário"
+          @click="addNewRecord"
+        />
+        <Button
+          icon="fa-trash"
+          type="danger-link"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-sync-alt"
+          iconClass="fas"
+          type="success-link"
+          animation="fa-spin"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-gavel"
+          iconClass="fas"
+          type="info-link"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-exchange-alt"
+          iconClass="fas"
+          type="info-link"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Default"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Default"
+          type="default-outline"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Primary"
+          type="primary"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Primary"
+          type="primary-outline"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Warn"
+          type="warn"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Warn"
+          type="warn-outline"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Info"
+          type="info"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Info"
+          type="info-outline"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Danger"
+          type="danger"
+          @click="addNewRecord"
+        />
+
+        <Button
+          icon="fa-plus"
+          label="Danger"
+          type="danger-outline"
           @click="addNewRecord"
         />
       </template>
