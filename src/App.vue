@@ -198,7 +198,7 @@ export default Vue.extend({
           new Label({ label: 'L1 - Text3', color: LabelColor.Primary }),
           new Link({ label: 'L1 - Text4', url: 'https://test.com' }),
           new Image({ label: 'L1 - Text5', align: 'center', height: 24, width: 24, url: 'https://images.sftcdn.net/images/t_app-logo-l,f_auto/p/93c11dcc-9ecb-49d4-971a-357372192727/4021352198/undefined-icon.png' }),
-          new Icon({ label: '', icon: 'fa-search', color: 'red', size: '14px', align: 'center', clickable: true }),
+          new Icon({ label: 'Status', icon: 'fa-search', color: 'red', size: '14px', align: 'center', clickable: true }),
           new Cell({ label: 'L1 - Text7', align: 'right' }),
         ],
       }),

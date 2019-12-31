@@ -1,0 +1,15 @@
+.cell-link-component {
+  color: $primary;
+
+  a {
+    border-color: 1px solid $backgroudColor;
+    padding: 2px;
+    &:any-link {
+      color: $primary;
+    }
+
+    .data-table-row-component.selected  &:any-link, .data-table-row-component.selected  & {
+      color: $textColorLight;
+    }
+  }
+}

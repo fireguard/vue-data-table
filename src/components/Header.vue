@@ -4,7 +4,7 @@
     :class="getHeaderClasses()"
     :style="{'minWidth': header.minWidth || '0', 'textAlign': header.align }"
   >
-    <span class="header-title" @click="handlerClick">
+    <span class="header-title" @click.prevent="handlerClick">
       <i class="fas" :class="getIconClass()" v-if="header.orderable"></i>
       {{ header.label }}
     </span>
