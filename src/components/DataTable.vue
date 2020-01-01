@@ -68,7 +68,7 @@ import ProgressIndeterminate from './ProgressIndeterminate.vue';
 
 import RowEntity from '../entities/Row';
 import CellEntity from '../entities/Cells/Cell';
-import HeaderEntity from '../entities/Header';
+import HeaderEntity from '../entities/Cells/Header';
 import PaginationEntity from '../entities/Pagination';
 
 @Component({

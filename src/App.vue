@@ -136,7 +136,7 @@
 import Vue from 'vue';
 import { DataTable, ActionButton, ActionButtonSeparator } from './index';
 import Row from './entities/Row';
-import Header from './entities/Header';
+import Header from './entities/Cells/Header';
 import Cell from './entities/Cells/Cell';
 import Summary from './entities/Cells/Summary';
 import Link from './entities/Cells/Link';

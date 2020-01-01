@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
-import HeaderEntity from '../entities/Header';
+import HeaderEntity from '../entities/Cells/Header';
 
 @Component
 export default class Header extends Vue {

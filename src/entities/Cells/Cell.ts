@@ -5,6 +5,12 @@ export interface CellOptions {
   clickable?: boolean
 }
 
+export const CellAlign = {
+  LEFT: 'left',
+  RIGHT: 'right',
+  CENTER: 'center',
+};
+
 export default class Cell {
   public type: string;
   public label: string;
@@ -14,7 +20,7 @@ export default class Cell {
   constructor (options: CellOptions) {
     this.type = options.type || 'text';
     this.label = options.label || '';
-    this.align = options.align || 'left';
+    this.align = options.align || CellAlign.LEFT;
     this.clickable = options.clickable || false;
   }
 }

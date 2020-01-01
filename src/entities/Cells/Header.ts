@@ -1,3 +1,5 @@
+import { CellAlign } from './Cell';
+
 export interface HeaderOptions {
 id: string;
 label: string;
@@ -7,6 +9,11 @@ label: string;
   minWidth?: string
   orderDirection?: string,
 }
+
+export const OrderDirection = {
+  ASC: 'asc',
+  DESC: 'desc',
+};
 
 export default class Header {
   public id: string;
@@ -18,16 +25,16 @@ export default class Header {
   public orderDirection: string;
 
   constructor (options: HeaderOptions) {
-    this.id = options.id || 'text';
+    this.id = options.id;
     this.label = options.label || '';
     this.searchable = options.searchable !== false;
     this.orderable = options.orderable !== false;
-    this.align = options.align || 'left';
+    this.align = options.align || CellAlign.LEFT;
     this.minWidth = options.minWidth || '0';
-    this.orderDirection = options.orderDirection || 'asc';
+    this.orderDirection = options.orderDirection || OrderDirection.ASC;
   }
 
   public changeOrderDirection () {
-    this.orderDirection = this.orderDirection === 'asc' ? 'desc' : 'asc';
+    this.orderDirection = this.orderDirection === OrderDirection.ASC ? OrderDirection.DESC : OrderDirection.ASC;
   }
 }
