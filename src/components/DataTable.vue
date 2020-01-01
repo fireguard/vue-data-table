@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import Row from './Row.vue';
 import Header from './Header.vue';
 import Pagination from './Pagination.vue';
@@ -71,95 +71,88 @@ import CellEntity from '../entities/Cells/Cell';
 import HeaderEntity from '../entities/Header';
 import PaginationEntity from '../entities/Pagination';
 
-export default Vue.extend({
-  name: 'DataTable',
+@Component({
   components: {
     Header,
     Row,
     Pagination,
     ProgressIndeterminate,
   },
-  props: {
-    orderBy: {
-      type: String,
-      default: null,
-    },
-    translation: {
-      type: Object,
-      default: {} as any,
-    },
-    rows: {
-      type: Array as () => Array<RowEntity>,
-      default: [],
-    },
-    headers: {
-      type: Array as () => Array<HeaderEntity>,
-      default: [],
-    },
-    selectableRows: {
-      type: Boolean,
-      default: false,
-    },
-    pagination: {
-      type: PaginationEntity,
-      default: null,
-    },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  methods: {
-    onCellClick (data: {event: MouseEvent, cell: CellEntity, row: RowEntity}) {
-      this.$emit('cellClick', data);
-    },
-    handlerClick (header: HeaderEntity) {
-      if (header.orderable !== false) {
-        this.$emit('changeOrder', header);
-      }
-    },
-    handlerSearch (search: { header: HeaderEntity, q: string}) {
-      console.error(search);
-    },
-    rowClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
-      this.changeSelection(rowClicked);
-      this.$emit('rowClick', rowClicked);
-    },
-    rowDoubleClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
-      this.$emit('rowDoubleClick', rowClicked);
-    },
-    isSelectedRow (row: RowEntity): boolean {
-      return this.selectedRows.indexOf(row) >= 0;
-    },
-    changeSelectedRows (rows: RowEntity[]) {
-      this.selectedRows = rows;
-      this.$emit('changeSelection', this.selectedRows);
-    },
-    changeSelection (rowClicked: {row: RowEntity, event: MouseEvent}): void {
-      if (this.isSelectedRow(rowClicked.row)) {
-        return this.changeSelectedRows(this.selectedRows.filter((row) => rowClicked.row === row));
-      }
-      if (rowClicked.event.ctrlKey || rowClicked.event.metaKey) {
-        return this.changeSelectedRows([rowClicked.row].concat(this.selectedRows));
-      }
-      return this.changeSelectedRows([rowClicked.row]);
-    },
-    changeShowSearch (showSearch: boolean) {
-      console.error('changeShowSearch', showSearch);
-      this.showSearch = showSearch;
-    },
-    changePage (page: number) {
-      this.$emit('changePage', page);
-    },
-    changePerPage (perPage: number) {
-      this.$emit('changePerPage', perPage);
-    },
-  },
-  data () {
-    return {
-      selectedRows: [] as RowEntity[],
-      showSearch: false as boolean,
-    };
-  },
-});
+})
+export default class DataTable extends Vue {
+  @Prop() private orderBy?: string;
+  @Prop() private translation: any = {};
+  @Prop() private rows!: RowEntity[];
+  @Prop() private headers?: HeaderEntity[] = [];
+  @Prop() private selectableRows?: boolean = false;
+  @Prop() private pagination?: PaginationEntity;
+  @Prop() private loading?: boolean = false;
+
+  protected selectedRows: RowEntity[] = [];
+  protected showSearch: boolean = false;
+
+  @Emit('cellClick')
+  protected onCellClick (data: {event: MouseEvent, cell: CellEntity, row: RowEntity}) {
+    return data;
+  }
+
+  @Emit('changeOrder')
+  protected handlerClick (header: HeaderEntity) {
+    if (header.orderable !== false) {
+      return header;
+    }
+  }
+
+  @Emit('search')
+  protected handlerSearch (search: { header: HeaderEntity, q: string}) {
+    return search;
+  }
+
+  @Emit('rowClick')
+  protected rowClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
+    this.changeSelection(rowClicked);
+    return rowClicked;
+  }
+
+  @Emit('rowDoubleClick')
+  protected rowDoubleClick (rowClicked: {row: RowEntity, event: MouseEvent}) {
+    return rowClicked;
+  }
+
+  @Emit('changeSelection')
+  protected changeSelectedRows (rows: RowEntity[]) {
+    this.selectedRows = rows;
+    return this.selectedRows;
+  }
+
+  @Emit('changePage')
+  changePage (page: number) {
+    return page;
+  }
+
+  @Emit('changePerPage')
+  protected changePerPage (perPage: number) {
+    return perPage;
+  }
+
+  protected isSelectedRow (row: RowEntity): boolean {
+    return this.selectedRows.indexOf(row) >= 0;
+  }
+
+  protected changeSelection (rowClicked: {row: RowEntity, event: MouseEvent}): void {
+    if (this.isSelectedRow(rowClicked.row)) {
+      this.changeSelectedRows(this.selectedRows.filter((row) => rowClicked.row === row));
+      return;
+    }
+    if (rowClicked.event.ctrlKey || rowClicked.event.metaKey) {
+      this.changeSelectedRows([rowClicked.row].concat(this.selectedRows));
+      return;
+    }
+    this.changeSelectedRows([rowClicked.row]);
+  }
+
+  protected changeShowSearch (showSearch: boolean) {
+    this.showSearch = showSearch;
+  }
+}
 </script>

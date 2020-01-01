@@ -5,13 +5,12 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+
 import IconEntity from '../../entities/Cells/Icon';
 
-export default Vue.extend({
-  name: 'CellIcon',
-  props: {
-    cell: IconEntity,
-  },
-});
+@Component
+export default class CellIcon extends Vue {
+  @Prop() private cell!: IconEntity;
+}
 </script>

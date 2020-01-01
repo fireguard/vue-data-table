@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import RowEntity from '../entities/Row';
 import CellSummary from './Cells/Summary.vue';
 import CellText from './Cells/Text.vue';
@@ -34,8 +34,7 @@ import SummaryEntity from '../entities/Cells/Summary';
 import ImageEntity from '../entities/Cells/Image';
 import IconEntity from '../entities/Cells/Icon';
 
-export default Vue.extend({
-  name: 'Row',
+@Component({
   components: {
     CellText,
     CellSummary,
@@ -44,55 +43,48 @@ export default Vue.extend({
     CellImage,
     CellIcon,
   },
-  props: {
-    selectable: {
-      type: Boolean,
-      default: false,
-    },
-    selected: {
-      type: Boolean,
-      default: false,
-    },
-    row: {
-      type: Object as () => RowEntity,
-    },
-  },
+})
+export default class Row extends Vue {
+  @Prop() private selectable?: boolean = false;
+  @Prop() private selected?: boolean = false;
+  @Prop() private row!: RowEntity;
 
-  data () {
-    return {
-      clicks: 0,
-      timer: undefined as any,
-      clickDelay: 200,
+  protected clicks: number = 0;
+  protected timer: any;
+  protected clickDelay: number = 200;
+
+  @Emit('click')
+  protected oneClickDispatch (event: MouseEvent) {
+    return { row: this.row, event };
+  }
+
+  @Emit('doubleClick')
+  protected doubleClickDispatch (event: MouseEvent) {
+    return { row: this.row, event };
+  }
+
+  @Emit('cellClick')
+  protected onCellClick (event: MouseEvent, cell: CellEntity) {
+    if (cell.clickable) {
+      return { event, cell, row: this.row };
     };
-  },
+  }
 
-  methods: {
-    onCellClick (event: MouseEvent, cell: CellEntity) {
-      if (!cell.clickable) return;
-      this.$emit('cellClick', { event, cell, row: this.row });
-    },
-    oneClickDispatch (event: MouseEvent) {
-      this.$emit('click', { row: this.row, event });
-    },
-    doubleClickDispatch (event: MouseEvent) {
-      this.$emit('doubleClick', { row: this.row, event });
-    },
-    click (event: MouseEvent) {
-      if (!this.selectable) return;
+  protected click (event: MouseEvent) {
+    if (!this.selectable) return;
 
-      this.clicks++;
-      if (this.clicks === 1) {
-        this.oneClickDispatch(event);
-        const self = this;
-        this.timer = setTimeout(function () {
-          self.clicks = 0;
-        }, this.clickDelay);
-      } else {
-        clearTimeout(this.timer);
-        this.doubleClickDispatch(event);
-        this.clicks = 0;
-      }
-    },
-  },
-});
+    this.clicks++;
+    if (this.clicks === 1) {
+      this.oneClickDispatch(event);
+      const self = this;
+      this.timer = setTimeout(function () {
+        self.clicks = 0;
+      }, this.clickDelay);
+    } else {
+      clearTimeout(this.timer);
+      this.doubleClickDispatch(event);
+      this.clicks = 0;
+    }
+  }
+}
 </script>

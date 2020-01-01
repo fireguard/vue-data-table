@@ -3,14 +3,12 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import CellEntity from '../../entities/Cells/Cell';
 
-export default Vue.extend({
-  name: 'CellText',
-  props: {
-    cell: CellEntity,
-  },
-});
+@Component
+export default class CellText extends Vue {
+  @Prop() private cell!: CellEntity;
+}
 </script>
 

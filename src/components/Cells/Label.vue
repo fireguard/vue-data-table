@@ -5,13 +5,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import LabelEntity from '../../entities/Cells/Label';
 
-export default Vue.extend({
-  name: 'CellLabel',
-  props: {
-    cell: LabelEntity,
-  },
-});
+@Component
+export default class CellLabel extends Vue {
+  @Prop() private cell!: LabelEntity;
+}
 </script>

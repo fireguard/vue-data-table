@@ -8,13 +8,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import CellEntity from '../../entities/Cells/Cell';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import LinkEntity from '../../entities/Cells/Link';
 
-export default Vue.extend({
-  name: 'CellLink',
-  props: {
-    cell: CellEntity,
-  },
-});
+@Component
+export default class CellLink extends Vue {
+  @Prop() private cell!: LinkEntity;
+}
 </script>

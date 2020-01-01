@@ -1,11 +1,11 @@
 <template>
   <th
     class="data-table-header-component"
-    :class="getHeaderClasses()"
+    :class="headerClasses"
     :style="{'minWidth': header.minWidth || '0', 'textAlign': header.align }"
   >
     <span class="header-title" @click.prevent="handlerClick">
-      <i class="fas" :class="getIconClass()" v-if="header.orderable"></i>
+      <i class="fas" :class="iconClasses" v-if="header.orderable"></i>
       {{ header.label }}
     </span>
     <div class="header-search" v-if="this.showSearch && this.header.searchable">
@@ -26,63 +26,52 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import HeaderEntity from '../entities/Header';
 
-export default Vue.extend({
-  name: 'Header',
-  props: {
-    label: String,
-    align: {
-      type: String,
-      default: 'left',
-    },
-    header: {
-      type: Object as () => HeaderEntity,
-      required: true,
-    },
-    ordered: {
-      type: Boolean,
-      default: false,
-    },
-    showSearch: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data () {
-    return {
-      search: '',
-      lastSearch: '',
-    };
-  },
-  methods: {
-    changedSearch () {
-      this.$emit('search', { header: this.header, q: this.search });
-      this.lastSearch = this.search;
-    },
-    clickShowSearch () {
-      this.$emit('changeShowSearch', !this.showSearch);
-    },
-    handlerClick () {
-      this.$emit('click', this.header);
-    },
-    getHeaderClasses () {
-      let classes = [];
-      if (this.header.orderable) {
-        classes.push('orderable');
-      }
-      if (this.header.orderable && this.ordered) {
-        classes.push(this.header.orderDirection === 'desc' ? 'desc' : 'asc');
-      }
-      return classes;
-    },
-    getIconClass () {
-      if (this.ordered && this.header.orderDirection === 'desc') return 'fa-sort-alpha-down desc';
-      if (this.ordered && this.header.orderDirection === 'asc') return 'fa-sort-alpha-up asc';
+@Component
+export default class Header extends Vue {
+  @Prop() private label?: string;
+  @Prop() private align: string = 'left';
+  @Prop() private header!: HeaderEntity;
+  @Prop() private ordered: boolean = false;
+  @Prop() private showSearch: boolean = false;
 
-      return 'fa-sort';
-    },
-  },
-});
+  private search: string = '';
+  private lastSearch: string = '';
+
+  get headerClasses () {
+    let classes = [];
+    if (this.header.orderable) {
+      classes.push('orderable');
+    }
+    if (this.header.orderable && this.ordered) {
+      classes.push(this.header.orderDirection === 'desc' ? 'desc' : 'asc');
+    }
+    return classes;
+  }
+
+  get iconClasses () {
+    if (this.ordered && this.header.orderDirection === 'desc') return 'fa-sort-alpha-down desc';
+    if (this.ordered && this.header.orderDirection === 'asc') return 'fa-sort-alpha-up asc';
+
+    return 'fa-sort';
+  }
+
+  @Emit('search')
+  protected changedSearch () {
+    this.lastSearch = this.search;
+    return { header: this.header, q: this.search };
+  }
+
+  @Emit('changeShowSearch')
+  protected clickShowSearch () {
+    return !this.showSearch;
+  }
+
+  @Emit('click')
+  protected handlerClick () {
+    return this.header;
+  }
+}
 </script>

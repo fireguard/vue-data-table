@@ -8,13 +8,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import ImageEntity from '../../entities/Cells/Image';
 
-export default Vue.extend({
-  name: 'CellImage',
-  props: {
-    cell: ImageEntity,
-  },
-});
+@Component
+export default class CellImage extends Vue {
+  @Prop() private cell!: ImageEntity;
+}
 </script>

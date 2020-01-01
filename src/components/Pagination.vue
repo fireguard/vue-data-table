@@ -7,7 +7,7 @@
       <i class="fas fa-angle-double-left"></i>
     </span>
     <span class="pagination-icon prev-page-action"
-          :class="{'disabled': !this.hasPrevPage()}"
+          :class="{'disabled': !this.hasPrevPage}"
           @click="prevPage"
     >
       <i class="fas fa-angle-left"></i>
@@ -19,7 +19,7 @@
     </span>
     <span class="pagination-separator" />
     <span class="pagination-icon next-page-action"
-          :class="{'disabled': !this.hasNextPage()}"
+          :class="{'disabled': !this.hasNextPage}"
           @click="nextPage"
     >
       <i class="fas fa-angle-right"></i>
@@ -44,66 +44,65 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
+import HeaderEntity from '../entities/Header';
+
 import PaginationEntity from '../entities/Pagination';
 
-export default Vue.extend({
-  name: 'Pagination',
-  props: {
-    pagination: {
-      type: PaginationEntity,
-      required: true,
-    },
-    translation: {
-      type: Object,
-      default: {} as any,
-    },
-  },
-  methods: {
-    changePage (page: number) {
-      this.currentPage = page;
-      if (this.pagination.currentPage !== this.currentPage) {
-        this.$emit('changePage', Number(page));
-      }
-    },
-    changePerPage () {
-      if (this.pagination.perPage !== this.perPage) {
-        this.$emit('changePerPage', Number(this.perPage));
-      }
-    },
-    hasNextPage () {
-      return (this.pagination.currentPage < this.pagination.totalPages);
-    },
-    nextPage () {
-      if (this.hasNextPage()) {
-        this.changePage(this.currentPage + 1);
-      }
-    },
-    hasPrevPage () {
-      return (this.pagination.currentPage > 1);
-    },
-    prevPage () {
-      if (this.hasPrevPage()) {
-        this.changePage(this.currentPage - 1);
-      }
-    },
-    inputChange () {
-      if (this.currentPage < 1 || this.currentPage > this.pagination.totalPages) {
-        this.currentPage = this.pagination.currentPage;
-        return;
-      }
-      this.changePage(this.currentPage);
-    },
-  },
-  created () {
+@Component
+export default class Pagination extends Vue {
+  @Prop() private pagination!: PaginationEntity;
+  @Prop() private translation: any = {};
+
+  protected currentPage: number = 0;
+  protected perPage: number = 0;
+
+  get hasNextPage (): boolean {
+    return (this.pagination.currentPage < this.pagination.totalPages);
+  }
+
+  get hasPrevPage (): boolean {
+    return (this.pagination.currentPage > 1);
+  }
+
+  @Emit('changePage')
+  protected changePage (page: number) {
+    this.currentPage = page;
+    if (this.pagination.currentPage !== this.currentPage) {
+      return Number(page);
+    }
+  }
+
+  @Emit('changePerPage')
+  protected changePerPage () {
+    if (this.pagination.perPage !== this.perPage) {
+      return Number(this.perPage);
+    }
+  }
+
+  public created () {
     this.currentPage = this.pagination.currentPage;
     this.perPage = this.pagination.perPage;
-  },
-  data () {
-    return {
-      currentPage: 0 as number,
-      perPage: 0 as number,
-    };
-  },
-});
+  }
+
+  protected nextPage () {
+    if (this.hasNextPage) {
+      this.changePage(this.currentPage + 1);
+    }
+  }
+
+  protected prevPage () {
+    if (this.hasPrevPage) {
+      this.changePage(this.currentPage - 1);
+    }
+  }
+
+  protected inputChange () {
+    if (this.currentPage < 1 || this.currentPage > this.pagination.totalPages) {
+      this.currentPage = this.pagination.currentPage;
+      return;
+    }
+    this.changePage(this.currentPage);
+  }
+}
 </script>
