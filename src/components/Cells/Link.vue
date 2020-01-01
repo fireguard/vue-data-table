@@ -13,6 +13,6 @@ import LinkEntity from '../../entities/Cells/Link';
 
 @Component
 export default class CellLink extends Vue {
-  @Prop() private cell!: LinkEntity;
+  @Prop() readonly cell!: LinkEntity;
 }
 </script>

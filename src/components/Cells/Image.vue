@@ -13,6 +13,6 @@ import ImageEntity from '../../entities/Cells/Image';
 
 @Component
 export default class CellImage extends Vue {
-  @Prop() private cell!: ImageEntity;
+  @Prop() readonly cell!: ImageEntity;
 }
 </script>

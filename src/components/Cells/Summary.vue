@@ -10,7 +10,7 @@ import SummaryEntity from '../../entities/Cells/Summary';
 
 @Component
 export default class CellSummary extends Vue {
-  @Prop() private cell!: SummaryEntity
+  @Prop() readonly cell!: SummaryEntity
 
   protected summarized: boolean = true;
 
@@ -32,6 +32,10 @@ export default class CellSummary extends Vue {
       return this.cell.label.substring(this.cell.label.length - this.cell.size, this.cell.label.length);
     }
     return this.cell.label.substring(0, this.cell.size);
+  }
+
+  protected toggleSumarized (): void {
+    this.summarized = !this.summarized;
   }
 }
 </script>

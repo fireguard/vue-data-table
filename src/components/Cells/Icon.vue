@@ -11,6 +11,6 @@ import IconEntity from '../../entities/Cells/Icon';
 
 @Component
 export default class CellIcon extends Vue {
-  @Prop() private cell!: IconEntity;
+  @Prop() readonly cell!: IconEntity;
 }
 </script>

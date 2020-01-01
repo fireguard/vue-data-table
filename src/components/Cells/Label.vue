@@ -10,6 +10,6 @@ import LabelEntity from '../../entities/Cells/Label';
 
 @Component
 export default class CellLabel extends Vue {
-  @Prop() private cell!: LabelEntity;
+  @Prop() readonly cell!: LabelEntity;
 }
 </script>

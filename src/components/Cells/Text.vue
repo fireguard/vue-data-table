@@ -8,7 +8,7 @@ import CellEntity from '../../entities/Cells/Cell';
 
 @Component
 export default class CellText extends Vue {
-  @Prop() private cell!: CellEntity;
+  @Prop() readonly cell!: CellEntity;
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="action-button-component" v-tooltip="tooltipsOptions" :class="[type]" @click="onClick">
-    <i :class="iconClass" v-if="icon"></i>
+    <i :class="iconClasses" v-if="icon"></i>
     <span
       class="button-label"
       :class="{ 'text-spaced': icon }"
@@ -19,12 +19,12 @@ import { VTooltip } from 'v-tooltip';
   },
 })
 export default class ActionButton extends Vue {
-  @Prop() private label?: string;
-  @Prop() private description?: string;
-  @Prop() private icon?: string;
-  @Prop() private iconClass?: string = 'fa';
-  @Prop() private type: string = 'default';
-  @Prop() private animation?: string;
+  @Prop() readonly label?: string;
+  @Prop() readonly description?: string;
+  @Prop() readonly icon?: string;
+  @Prop({ default: 'fa' }) readonly iconClass!: string;
+  @Prop({ default: 'default' }) readonly type!: string;
+  @Prop() readonly animation?: string;
 
   get iconClasses () {
     const iconClass = [this.iconClass, this.icon];

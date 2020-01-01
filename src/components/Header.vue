@@ -28,14 +28,15 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import HeaderEntity from '../entities/Cells/Header';
+import { CellAlign } from '../entities/Cells/Cell';
 
 @Component
 export default class Header extends Vue {
   @Prop() private label?: string;
-  @Prop() private align: string = 'left';
+  @Prop({ default: CellAlign.LEFT }) private align?: string;
   @Prop() private header!: HeaderEntity;
-  @Prop() private ordered: boolean = false;
-  @Prop() private showSearch: boolean = false;
+  @Prop({ default: false }) private ordered?: boolean;
+  @Prop({ default: false }) private showSearch?: boolean;
 
   private search: string = '';
   private lastSearch: string = '';

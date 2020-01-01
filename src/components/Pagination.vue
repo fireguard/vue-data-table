@@ -51,8 +51,8 @@ import PaginationEntity from '../entities/Pagination';
 
 @Component
 export default class Pagination extends Vue {
-  @Prop() private pagination!: PaginationEntity;
-  @Prop() private translation: any = {};
+  @Prop() readonly pagination!: PaginationEntity;
+  @Prop({ default: {} }) readonly translation!: any;
 
   protected currentPage: number = 0;
   protected perPage: number = 0;

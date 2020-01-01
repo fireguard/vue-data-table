@@ -45,8 +45,8 @@ import IconEntity from '../entities/Cells/Icon';
   },
 })
 export default class Row extends Vue {
-  @Prop() private selectable?: boolean = false;
-  @Prop() private selected?: boolean = false;
+  @Prop({ default: false }) readonly selectable!: boolean;
+  @Prop({ default: false }) readonly selected!: boolean;
   @Prop() private row!: RowEntity;
 
   protected clicks: number = 0;

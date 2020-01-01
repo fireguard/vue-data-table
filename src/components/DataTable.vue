@@ -80,13 +80,13 @@ import PaginationEntity from '../entities/Pagination';
   },
 })
 export default class DataTable extends Vue {
-  @Prop() private orderBy?: string;
-  @Prop() private translation: any = {};
-  @Prop() private rows!: RowEntity[];
-  @Prop() private headers?: HeaderEntity[] = [];
-  @Prop() private selectableRows?: boolean = false;
-  @Prop() private pagination?: PaginationEntity;
-  @Prop() private loading?: boolean = false;
+  @Prop() readonly orderBy?: string;
+  @Prop() readonly rows!: RowEntity[];
+  @Prop({ default: {} }) readonly translation!: any;
+  @Prop({ default: [] }) readonly headers!: HeaderEntity[];
+  @Prop({ default: false }) readonly selectableRows!: boolean;
+  @Prop() readonly pagination?: PaginationEntity;
+  @Prop({ default: false }) readonly loading!: boolean;
 
   protected selectedRows: RowEntity[] = [];
   protected showSearch: boolean = false;
