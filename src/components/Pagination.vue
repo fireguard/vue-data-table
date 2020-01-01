@@ -65,18 +65,16 @@ export default class Pagination extends Vue {
     return (this.pagination.currentPage > 1);
   }
 
-  @Emit('changePage')
   protected changePage (page: number) {
     this.currentPage = page;
     if (this.pagination.currentPage !== this.currentPage) {
-      return Number(page);
+      this.$emit('changePage', Number(this.currentPage));
     }
   }
 
-  @Emit('changePerPage')
   protected changePerPage () {
     if (this.pagination.perPage !== this.perPage) {
-      return Number(this.perPage);
+      this.$emit('changePerPage', Number(this.perPage));
     }
   }
 

@@ -1,4 +1,4 @@
-import Cell, { CellOptions } from './Cell';
+import Cell, { CellOptions, CellAlign } from './Cell';
 
 export enum Color {
   Default = 'default',
@@ -19,6 +19,6 @@ export default class Label extends Cell {
     super(options);
     this.type = 'label';
     this.color = options.color || Color.Default;
-    this.align = options.align || 'center';
+    this.align = options.align || CellAlign.CENTER;
   }
 }

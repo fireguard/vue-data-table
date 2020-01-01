@@ -63,11 +63,10 @@ export default class Row extends Vue {
     return { row: this.row, event };
   }
 
-  @Emit('cellClick')
   protected onCellClick (event: MouseEvent, cell: CellEntity) {
     if (cell.clickable) {
-      return { event, cell, row: this.row };
-    };
+      this.$emit('cellClick', { event, cell, row: this.row });
+    }
   }
 
   protected click (event: MouseEvent) {

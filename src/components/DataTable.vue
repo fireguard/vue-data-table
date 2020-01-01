@@ -96,13 +96,6 @@ export default class DataTable extends Vue {
     return data;
   }
 
-  @Emit('changeOrder')
-  protected handlerClick (header: HeaderEntity) {
-    if (header.orderable !== false) {
-      return header;
-    }
-  }
-
   @Emit('search')
   protected handlerSearch (search: { header: HeaderEntity, q: string}) {
     return search;
@@ -133,6 +126,12 @@ export default class DataTable extends Vue {
   @Emit('changePerPage')
   protected changePerPage (perPage: number) {
     return perPage;
+  }
+
+  protected handlerClick (header: HeaderEntity) {
+    if (header.orderable !== false) {
+      this.$emit('changeOrder', header);
+    }
   }
 
   protected isSelectedRow (row: RowEntity): boolean {
